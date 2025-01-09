@@ -23,7 +23,10 @@ import { ParentMealSelectionModule } from './api/v1/parent/parent-meal-selection
 import { StaffMealSelectionModule } from './api/v1/school-staff/staff-meal-selection/staff-meal-selection.module';
 import { ParentOrdersModule } from './api/v1/parent/parent-orders/parent-orders.module';
 import { ParentDashboardModule } from './api/v1/parent/parent-dashboard/parent-dashboard.module';
-
+import { DistrictExecutiveUserManagementModule } from './api/v1/district-executive/user-management/user-management.module';
+import { StateExecutiveUserManagementModule } from './api/v1/state-executive/user-management/user-management.module';
+import { AdminUserManagementModule } from './api/v1/admin/user-management/user-management.module';
+import { SuperAdminUserManagementModule } from './api/v1/super-admin/user-management/user-management.module';
 @Module({
   imports: [
     CommonModule,
@@ -50,6 +53,10 @@ import { ParentDashboardModule } from './api/v1/parent/parent-dashboard/parent-d
     StaffMealSelectionModule,
     ParentOrdersModule,
     ParentDashboardModule,
+    DistrictExecutiveUserManagementModule,
+    StateExecutiveUserManagementModule,
+    AdminUserManagementModule,
+    SuperAdminUserManagementModule
     // SeederModule
   ]
 })

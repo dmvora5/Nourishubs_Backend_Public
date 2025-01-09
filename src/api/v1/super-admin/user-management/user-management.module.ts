@@ -12,4 +12,4 @@ import { UsernotificationModule } from '../../usernotification/usernotification.
   controllers: [UserManagementController],
   providers: [UserManagementService],
 })
-export class UserManagementModule {}
+export class SuperAdminUserManagementModule {}

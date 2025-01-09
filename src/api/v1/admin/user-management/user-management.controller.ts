@@ -1,18 +1,18 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post, Put, Query, UseGuards } from '@nestjs/common';
 import { UserManagementService } from '../../super-admin/user-management/user-management.service';
 import { ApiBearerAuth, ApiTags, ApiQuery, ApiOperation } from '@nestjs/swagger';
-import { BasicQueryDto, CurrentRole, CurrentUser, IRole, IUser, JwtAuthGuard, PermissionGuard, PERMISSIONS, ROLES, SubPermissionGuard, Validate, ValidateObjectIdPipe } from '@app/shared';
+import { BasicQueryDto, CurrentRole, CurrentUser, IRole, IUser, JwtAuthGuard, PermissionGuard, PERMISSIONS, ROLES, SubPermissionGuard, Validate, ValidateObjectIdPipe } from '@app/common';
 import { CreateUserDto } from '../../users/dtos/create-user.dto';
 import { I18n, I18nContext } from 'nestjs-i18n';
 import { UpdateUserDto } from '../../users/dtos/update-user.dto';
 import { UsersService } from '../../users/users.service';
 import { SuspenDto } from '../../users/dtos/suspend.dto';
 @ApiBearerAuth()
-@ApiTags("State-Executive / User-Management")
-@Controller('state-executive-user-management')
+@ApiTags("Admin / User-Management")
+@Controller('admin-user-management')
 @PermissionGuard({
   permissions: [PERMISSIONS.USERMANAGEMENT.permission],
-  roles: [ROLES.STATE_EXECUTIVE]
+  roles: [ROLES.ADMIN]
 })
 @UseGuards(JwtAuthGuard)
 export class UserManagementController {
@@ -26,10 +26,9 @@ export class UserManagementController {
   async createUesr(
     @Body() payload: CreateUserDto,
     @CurrentUser() user: IUser,
-    @CurrentRole() role: IRole,
     @I18n() i18n: I18nContext
   ) {
-    return await this.usersService.createUserWithRoleAndPermission(role?._id, payload, i18n, user?._id);
+    return await this.usersService.createUserWithRoleAndPermission(user.role, payload, i18n, user?._id);
   }
 
 
@@ -65,7 +64,7 @@ export class UserManagementController {
     @I18n() i18: I18nContext
 
   ) {
-    return this.usersService.updateStatus(user?._id, role?._id, payload, userId, i18);
+    return this.usersService.updateStatus(user.role, payload, userId, i18);
   }
 
 
@@ -81,7 +80,7 @@ export class UserManagementController {
     @Body() payload: UpdateUserDto,
     @I18n() i18n: I18nContext
   ) {
-    return this.usersService.updateUser(user?._id, role?._id, id, payload, i18n);
+    return this.usersService.updateUser(user.role, id, payload, i18n);
   }
 
   @SubPermissionGuard({
@@ -95,7 +94,7 @@ export class UserManagementController {
     @CurrentUser() user: IUser,
     @I18n() i18: I18nContext
   ) {
-    return await this.usersService.softDeleteUser(user?._id, role?._id, id, i18);
+    return await this.usersService.softDeleteUser(user.role, id, i18);
   }
 
 
@@ -126,7 +125,7 @@ export class UserManagementController {
     @CurrentUser() user: IUser,
     @I18n() i18n: I18nContext
   ) {
-    return this.usersService.getUserById(role?._id, id, i18n, user?._id);
+    return this.usersService.getUserById(user.role, id, i18n);
   }
 
 }

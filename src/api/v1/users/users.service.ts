@@ -7,7 +7,7 @@ import { CommonResponseService } from '@app/common/services';
 import { SuspenDto } from './dtos/suspend.dto';
 import { UpdateUserDto } from './dtos/update-user.dto';
 import { UsernotificationService } from '../usernotification/usernotification.service';
-
+import { BasicQueryDto,getPaginationDetails } from '@app/common';
 const PENDING_VEROFICATION_ROLES = [
     ROLES.VENDOR,
     ROLES.SCHOOL
@@ -284,6 +284,131 @@ export class UsersService {
         } catch (error) {
             throw error;
         }
+    }
+    async getAllUsers(
+        query: BasicQueryDto,
+        i18n: I18nContext,
+        loggedInUserId?: string, // Optional loggedInUserId
+
+    ) {
+        const { page, limit, searchQuery, orderBy = { createdAt: -1 } } = query;
+
+        const skip = (page - 1) * limit;
+        const baseFilter: any = { status: 'active' };
+        if (loggedInUserId) {
+            baseFilter.createdBy = loggedInUserId;
+        }
+        const searchFilter = searchQuery
+            ? {
+                $or: [
+                    { email: { $regex: searchQuery, $options: 'i' } },
+                    { first_name: { $regex: searchQuery, $options: 'i' } },
+                    { last_name: { $regex: searchQuery, $options: 'i' } }
+                ]
+            }
+            : {};
+
+        const filter = { ...baseFilter, ...searchFilter };
+
+        const [permissions, total, totalFiltered] = await Promise.all([
+            this.userRepository.getAllUserWithRoles({ filter, skip, limit, orderBy }),
+            this.userRepository.countDocuments({ status: 'active' }), // Count all non-deleted users
+            this.userRepository.countDocuments(filter),
+        ]);
+
+        const { totalPage, startIndex, endIndex, currentPageFilteredCount } = getPaginationDetails({
+            data: permissions,
+            count: totalFiltered,
+            limit,
+            skip,
+        })
+
+        const meta = {
+            totalFiltered,
+            total,
+            currentPage: page,
+            perPage: limit,
+            totalPage,
+            startIndex,
+            endIndex,
+            currentPageFilteredCount,
+            searchQuery,
+            orderBy
+        }
+
+        const suspended = await this.userRepository.countDocuments({ status: 'suspended' }); // Count all non-deleted users
+        const users = {
+            "users": permissions,
+            "suspended_accounts": suspended
+        };
+        return this.responseService.success(await i18n.translate('messages.usersRetrieved'), users, meta);
+    }
+    async getSuspendedAccounts(
+        query: BasicQueryDto,
+        i18n: I18nContext,
+        loggedInUserId?: string, // Optional loggedInUserId
+
+    ) {
+        try {
+
+            const { page, limit, searchQuery, orderBy = { createdAt: -1 } } = query;
+
+            const skip = (page - 1) * limit;
+
+            // Filter for suspended users
+            const baseFilter: any = { status: 'active' };
+            if (loggedInUserId) {
+                baseFilter.createdBy = loggedInUserId;
+            }
+            const searchFilter = searchQuery
+                ? {
+                    $or: [
+                        { email: { $regex: searchQuery, $options: 'i' } },
+                        { first_name: { $regex: searchQuery, $options: 'i' } },
+                        { last_name: { $regex: searchQuery, $options: 'i' } }
+                    ]
+                }
+                : {};
+            const filter = { ...baseFilter, ...searchFilter };
+            const [users, total, totalFiltered] = await Promise.all([
+                this.userRepository.findWithPagination(filter, { skip, limit }, "-permissions"),
+                this.userRepository.countDocuments({ status: 'suspended' }), // Count all users
+                this.userRepository.countDocuments(filter), // Count suspended users
+            ]);
+
+            const { totalPage, startIndex, endIndex, currentPageFilteredCount } = getPaginationDetails({
+                data: users,
+                count: totalFiltered,
+                limit,
+                skip,
+            });
+
+            const meta = {
+                totalFiltered,
+                total,
+                currentPage: page,
+                perPage: limit,
+                totalPage,
+                startIndex,
+                endIndex,
+                currentPageFilteredCount,
+                searchQuery,
+                orderBy
+            };
+            const usersdata = {
+                "users": users,
+            };
+            return this.responseService.success(await i18n.translate('messages.suspendedUsersRetrieved'), usersdata, meta);
+        } catch (error) {
+            throw error;
+        }
+    }
+    async statistics() {
+        const suspended = await this.userRepository.countDocuments({ status: 'suspended' }); // Count all non-deleted users
+        const users = {
+            "suspended_accounts": suspended
+        };
+        return this.responseService.success("", users, {});
     }
 
 }

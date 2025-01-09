@@ -1,0 +1,363 @@
+{
+    "type":{
+        "isIn": "type must be in a school_role, parent_role or vendor_role"
+    },
+    "data": {
+        "isDefined": "data must be defined"
+    },
+    "first_name": {
+        "isString": "First name must be a string",
+        "isNotEmpty": "First name is required"
+    },
+    "last_name": {
+        "isString": "Last name must be a string",
+        "isNotEmpty": "Last name is required"
+    },
+    "email": {
+        "isEmail": "Email must be a valid email address",
+        "isString": "Email name must be a string",
+        "isNotEmpty": "Email is required"
+    },
+    "phoneNo": {
+        "isPhoneNumber": "Phone number must be a valid phone number",
+        "isString": "Phone number must be a string",
+        "isNotEmpty": "Phone number is required"
+    },
+    "schoolName": {
+        "isString": "School name must be a string",
+        "isNotEmpty": "School name is required",
+        "whitelistValidation": "schoolName shoude not be in payload"
+    },
+    "age": {
+        "isNumber": "AGE must be a number",
+        "isString": "AGE name must be a string",
+        "isNotEmpty": "AGE is required"
+    },
+    "gender": {
+        "isString": "gender must be a string",
+        "isNotEmpty": "gender is required"
+    },
+    "schoolAddress": {
+        "isString": "School address must be a string",
+        "isNotEmpty": "School address is required"
+    },
+    "companyName": {
+        "isString": "Company name must be a string",
+        "isNotEmpty": "Company name is required"
+    },
+    "otp": {
+        "isNumber": "OTP must be a number",
+        "isNotEmpty": "OTP is required"
+    },
+    "message": {
+        "isString": "Message must be a string",
+        "isNotEmpty": "Message is required"
+    },
+    "name": {
+        "isString": "Name must be a string",
+        "isNotEmpty": "Name is required"
+    },
+    "description": {
+        "isString": "Description must be a string",
+        "isNotEmpty": "Description is required"
+    },
+    "permissions": {
+        "isArray": "Permissions must be an array",
+        "isNotEmpty": "Permissions must not be an empty array",
+        "each": {
+            "isString": "Each permissionId must be a string"
+        }
+    },
+    "permission": {
+        "isString": "Permission must be a string",
+        "isNotEmpty": "Permission is required"
+    },
+    "subPermissions": {
+        "isArray": "SubPermissions must be an array",
+        "isNotEmpty": "SubPermissions is required",
+        "each": {
+            "isString": "Each permissionId must be a string"
+        }
+    },
+    "role": {
+        "isString": "Role must be a string",
+        "isNotEmpty": "Role is required"
+    },
+    "password": {
+        "isString": "Password must be a string",
+        "isNotEmpty": "Password is required",
+        "minLength": "Password must be at least 8 characters long"
+    },
+    "newPassword": {
+        "isString": "New Password must be a string",
+        "isNotEmpty": "New Password is required",
+        "minLength": "New Password must be at least 8 characters long"
+    },
+    "confirm_password": {
+        "isString": "Confirm password must be a string",
+        "isNotEmpty": "Confirm password is required",
+        "minLength": "Confirm password must be at least 8 characters long",
+        "validateIf": "Confirm password must match the password."
+    },
+    "country": {
+        "isString": "country must be a string",
+        "isNotEmpty": "country is required"
+    },
+    "price": {
+        "isNumber": "Price must be a number",
+        "isString": "Price must be a string",
+        "isNotEmpty": "Price is required",
+        "min": "Price must be a positive number"
+    },
+    "vendor": {
+        "isMongoId": "The vendor ID must be a valid MongoDB ObjectId",
+        "isDefined": "The vendor field is required and must not be empty",
+        "isArray": "Vendor must be an array",
+        "isNotEmpty": "Vendor is required"
+    },
+    "image": {
+        "isString": "Image must be a string"
+    },
+    "ingredients": {
+        "isArray": "Ingredients must be an array"
+    },
+    "required_rule": {
+        "isNotEmpty": "Required Rule is required"
+    },
+    "quantity": {
+        "isNumber": "Quantity must be a number",
+        "isNotEmpty": "Quantity is required",
+        "min": "Quantity must be at least 1"
+    },
+    "max_selection": {
+        "isArray": "Max Selection must be an array"
+    },
+    "notes": {
+        "isString": "Notes must be a string"
+    },
+    "vendorId": {
+        "isString": "vendorId must be a string",
+        "isNotEmpty": "vendorId is required",
+        "isMongoId": "The vendor ID must be a valid MongoDB ObjectId"
+    },
+    "parentId": {
+        "isString": "parentId must be a string",
+        "isNotEmpty": "parentId is required",
+        "isMongoId": "The parent ID must be a valid MongoDB ObjectId"
+    },
+    "kidId": {
+        "isString": "kidId must be a string",
+        "isNotEmpty": "kidId is required",
+        "isMongoId": "The kid ID must be a valid MongoDB ObjectId"
+    },
+    "weekOfMonth": {
+        "isNumber": "Week Of Month must be a number"
+    },
+    "startDate": {
+        "dateString": "startDate is required when isRecurring is true"
+    },
+    "endDate": {
+        "dateString": "endDate is required when isRecurring is true",
+        "isFutureDate": "The end date must be in the future.",
+        "endDateGreaterThanDate": "The end date must be greater than the selected date."
+    },
+    "date": {
+        "isFutureDate": "The date must be in the future.",
+        "isString": "The date must be a string",
+        "isNotEmpty": "The date is required",
+        "isISODateOnly": "date must be a valid date in the format YYYY-MM-DD"
+    },
+    "title": {
+        "isString": "Title must be a string",
+        "isNotEmpty": "Title is required"
+    },
+    "reason": {
+        "isString": "Reason must be a string",
+        "isNotEmpty": "Reason is required"
+    },
+    "approved": {
+        "isString": "Reason must be a string",
+        "isNotEmpty": "Reason is required"
+    },
+    "invalidObjectId": "The ID '{value}' is not a valid MongoDB ObjectId.",
+    "meal_type": {
+        "isString": "Meal-Type must be a string",
+        "isNotEmpty": "Meal-Type is required"
+    },
+    "meal_detail": {
+        "isString": "Meal-Detail must be a string",
+        "isNotEmpty": "Meal-Detail is required"
+    },
+    "orderDate": {
+        "dateString": "order-Date is required when isRecurring is true",
+        "isString": "order-Date must be a string",
+        "isNotEmpty": "order-Date is required",
+        "isDate": "pass valid date"
+    },
+    "delivery_address": {
+        "isString": "delivery-address must be a string",
+        "isNotEmpty": "delivery-address is required"
+    },
+    "modifierId": {
+        "isNotEmpty": "modifierId is required",
+        "isMongoId": "The modifier ID must be a valid MongoDB ObjectId",
+        "isArray": "categoryIds must be an array"
+    },
+    "dishId": {
+        "isNotEmpty": "dishId is required",
+        "isMongoId": "The dish ID must be a valid MongoDB ObjectId",
+        "isArray": "dishId must be an array"
+    },
+    "orderId": {
+        "isNotEmpty": "orderId is required",
+        "isMongoId": "The order ID must be a valid MongoDB ObjectId"
+    },
+    "cartItems": {
+        "isNotEmpty": "Item in Cart is required",
+        "isArray": "cartItems must be an array"
+    },
+    "totalAmount": {
+        "min": "Total amount must be a positive number",
+        "isNumber": "Total amount must be a number"
+    },
+    "mongoID": {
+        "isMongoId": "The ID '{value}' is not a valid MongoDB ObjectId."
+    },
+    "city": {
+        "isString": "city must be a string",
+        "isNotEmpty": "city name is required"
+    },
+    "state": {
+        "isString": "state must be a string",
+        "isNotEmpty": "state name is required"
+    },
+    "district": {
+        "isString": "district must be a string",
+        "isNotEmpty": "district name is required"
+    },
+    "address": {
+        "isString": "address must be a string",
+        "isNotEmpty": "address is required"
+    },
+    "latitude": {
+        "isNumber": "latitude must be a number",
+        "isNotEmpty": "latitude is required",
+        "min": "latitude must be graterthen -90",
+        "max": "latitude must be lessthan 90"
+    },
+    "longitude": {
+        "isNumber": "longitude must be a number",
+        "isNotEmpty": "longitude is required",
+        "min": "longitude must be graterthen -180",
+        "max": "longitude must be lessthan 180"
+    },
+    "countryId": {
+        "isMongoId": "countryId must be a valid MongoDB ObjectId",
+        "isDefined": "countryId field is required and must not be empty",
+        "isString": "countryId must be a string",
+        "isNotEmpty": "countryId name is required"
+    },
+    "orderDetail": {
+        "isString": "order Detail must be a string",
+        "isNotEmpty": "order Detail name is required"
+    },
+    "issueId": {
+        "isMongoId": "issueId must be a valid MongoDB ObjectId",
+        "isNotEmpty": "issueId name is required"
+    },
+    "schoolId": {
+        "isString": "schoolId must be a string",
+        "isMongoId": "schoolId must be a valid MongoDB ObjectId",
+        "isNotEmpty": "schoolId name is required"
+    },
+    "issue_topic": {
+        "isString": "issue topic must be a string",
+        "isNotEmpty": "issue topic name is required"
+    },
+    "issue_description": {
+        "isString": "issue description must be a string",
+        "isNotEmpty": "issue description name is required"
+    },
+    "cancelorderRequestRejectReason": {
+        "isString": "cancel order Request Reject Reason must be a string"
+    },
+    "cancelorderRequestStatus": {
+        "isString": "cancel order Request Status must be a string",
+        "isNotEmpty": "cancel order Request Status is required"
+    },
+    "modifiers": {
+        "isArray": "modifiers must be an array"
+    },
+    "staffId": {
+        "isString": "staffId must be a string",
+        "isNotEmpty": "staffId name is required"
+    },
+    "class": {
+        "isString": "class must be a string",
+        "isNotEmpty": "class is required"
+    },
+    "grade": {
+        "isString": "grade must be a string",
+        "isNotEmpty": "grade is required"
+    },
+    "height": {
+        "isString": "height must be a string",
+        "isNotEmpty": "height is required"
+    },
+    "weight": {
+        "isString": "weight must be a string",
+        "isNotEmpty": "weight is required"
+    },
+    "allergiesOrDietaryDescription": {
+        "isString": "all ergies Or Dietary Description must be a string"
+    },
+    "imgUrl": {
+        "isString": "imgUrl must be a string",
+        "isNotEmpty": "imgUrl is required"
+    },
+    "eventName": {
+        "isString": "event Name must be a string"
+    },
+    "verificationStatus": {
+        "isString": "verification Status must be a string",
+        "isNotEmpty": "verification Status is required"
+    },
+    "documents": {
+        "isNotEmpty": "documents is required",
+        "isDefined": "documents field is required and must not be empty"
+    },
+    "status": {
+        "isString": "Status must be a string",
+        "isNotEmpty": "Status is required"
+    },
+    "unit": {
+        "isString": "unit must be a string"
+    },
+    "categoryIds": {
+        "isArray": "categoryIds must be an array"
+    },
+    "tax_pricing": {
+        "isNotEmpty": "tax price is required",
+        "isNumber": "tax pricing must be a number"
+    },
+    "cancelOrderDescription": {
+        "isString": "cancel Order Description must be a string",
+        "isNotEmpty": "cancel Order Description is required"
+    },
+    "cancelOrderDate": {
+        "dateString": "cancelOrderDate is required"
+    },
+    "openingTime": {
+        "isString": "opening Time must be a string",
+        "matches": "Opening time must follow the /^([01]?[0-9]|2[0-3]):([0-5][0-9])(AM|PM)"
+    },
+    "closingTime": {
+        "isString": "closing Time must be a string",
+        "matches": "closing Time must follow the /^([01]?[0-9]|2[0-3]):([0-5][0-9])(AM|PM)"
+    },
+    "coordinates": {
+        "isArray": "coordinates must be an array",
+        "min": "Coordinates must have exactly two elements: [longitude, latitude].",
+        "max": "Coordinates must have exactly two elements: [longitude, latitude]."
+    }
+}

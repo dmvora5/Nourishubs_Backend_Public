@@ -32,7 +32,32 @@ export class UserRepository extends AbstractRepository<User> {
             .lean(true)
             .exec();
     }
-
+    async getAllUserWithRoles({
+        filter = {},         // Default to an empty object
+        skip = 0,            // Default to 0 (no skipping)
+        limit = 0,           // Default to 0 (no limit, fetch all)
+        orderBy = {},        // Default to an empty object (no specific order)
+      }: {
+        filter?: any;
+        skip?: number;
+        limit?: number;
+        orderBy?: Record<string, any>;
+      }): Promise<any>
+      {
+        console.log(filter);
+       return this.userModel
+        .find(filter, '-permissions')
+        .populate({
+          path: 'role',
+          select: 'name',
+          transform: (doc) => (doc ? doc.name : null),
+        })
+        .skip(skip)
+        .limit(limit)
+        .sort(orderBy)
+        .lean(true)
+        .exec();
+    }
 
 }
 

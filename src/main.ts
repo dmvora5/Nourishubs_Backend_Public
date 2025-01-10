@@ -62,7 +62,7 @@ async function bootstrap() {
   app.setGlobalPrefix('api/v1');
 
   app.enableCors({
-    origin: ['http://localhost:3000', 'https://dev.nourishubs.com','https://nourishubs.com/en'],
+    origin: ['http://localhost:3000', 'https://dev.nourishubs.com','https://nourishubs.com'],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     allowedHeaders: [
       "Content-Type",

@@ -56,17 +56,29 @@ export abstract class AbstractRepository<TDocument extends Document> {
 
     }
 
-    async find(filterQuery: FilterQuery<TDocument>, projection: ProjectionType<TDocument> = {}) {
+    async find(filterQuery: FilterQuery<TDocument>, projection: ProjectionType<TDocument> = {},
+        populateOptions: Array<{ path: string; select?: string }> = [] // Add populate options
+
+    ) {
         return this.model.find(filterQuery, projection, { lean: true });
     }
 
-    async findWithPagination(filterQuery: FilterQuery<TDocument>, metadata: PaginationDetails, projection: ProjectionType<TDocument> = {}) {
-        return this.model.find(filterQuery, projection)
-            .skip(metadata.skip)
-            .limit(metadata.limit)
-            .sort(metadata.orderBy)
-            .lean(true)
-            .exec();
+    async findWithPagination(filterQuery: FilterQuery<TDocument>, metadata: PaginationDetails, projection: ProjectionType<TDocument> = {},
+        populateOptions: Array<{ path: string; select?: string }> = [] // Add populate options
+
+    ) {
+        const query = this.model.find(filterQuery, projection)
+        .skip(metadata.skip)
+        .limit(metadata.limit)
+        .sort(metadata.orderBy)
+        .lean(true);
+    
+        // Apply populate options if provided
+        populateOptions.forEach(option => {
+            query.populate(option.path, option.select);
+        });
+        
+        return query.exec();
     }
 
     async countDocuments(filterQuery: FilterQuery<TDocument>) {

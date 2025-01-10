@@ -29,6 +29,7 @@ import { AdminUserManagementModule } from './api/v1/admin/user-management/user-m
 import { SuperAdminUserManagementModule } from './api/v1/super-admin/user-management/user-management.module';
 import { VerificationRequestsModule } from './modules/verification-requests/verification-requests.module';
 import { SuperAdminVendormanagementModule } from './api/v1/super-admin/super-admin-vendormanagement/super-admin-vendormanagement.module';
+import { SuperAdminOrderManagement } from './api/v1/super-admin/order-management/orders.module';
 @Module({
   imports: [
     CommonModule,
@@ -60,7 +61,8 @@ import { SuperAdminVendormanagementModule } from './api/v1/super-admin/super-adm
     AdminUserManagementModule,
     SuperAdminUserManagementModule,
     VerificationRequestsModule,
-    SuperAdminVendormanagementModule
+    SuperAdminVendormanagementModule,
+    SuperAdminOrderManagement
     // SeederModule
   ]
 })

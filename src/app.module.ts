@@ -31,6 +31,8 @@ import { VerificationRequestsModule } from './modules/verification-requests/veri
 import { SuperAdminVendormanagementModule } from './api/v1/super-admin/super-admin-vendormanagement/super-admin-vendormanagement.module';
 import { SchoolAdminFoodchartModule } from './api/v1/school-admin/school-admin-foodchart/school-admin-foodchart.module';
 import { AreaExecutiveFoodchartModule } from './api/v1/area-executives/area-executive-foodchart/area-executive-foodchart.module';
+import { SchoolAdminDashboardModule } from './api/v1/school-admin/school-admin-dashboard/school-admin-dashboard.module';
+import { StaffManagementModule } from './api/v1/school-admin/staff-management/staff-management.module';
 @Module({
   imports: [
     CommonModule,
@@ -64,7 +66,9 @@ import { AreaExecutiveFoodchartModule } from './api/v1/area-executives/area-exec
     VerificationRequestsModule,
     SuperAdminVendormanagementModule,
     SchoolAdminFoodchartModule,
-    AreaExecutiveFoodchartModule
+    AreaExecutiveFoodchartModule,
+    SchoolAdminDashboardModule,
+    StaffManagementModule
     // SeederModule
   ]
 })

@@ -85,9 +85,9 @@ export class VerificationRequestsService {
     }
 
     async getDocumentRequestById(id: string, i18n: I18nContext) {
-        const vendor = await this.verificationRequestRepository.findOne({ _id: id, type: VERIFICATION_TYPE.DOCUMENTVERIFICATION });
+        const request = await this.verificationRequestRepository.findOne({ _id: id, type: VERIFICATION_TYPE.DOCUMENTVERIFICATION });
 
-        if (!vendor) {
+        if (!request) {
             throw new NotFoundException(
                 await i18n.translate('messages.requestNotFound'),
             );
@@ -95,8 +95,12 @@ export class VerificationRequestsService {
 
         return this.responseService.success(
             await i18n.translate(''),
-            vendor,
+            request,
         );
+    }
+
+    async getDocumentRequestsByUserId(id: string) {
+        return this.verificationRequestRepository.find({ userId: id, type: VERIFICATION_TYPE.DOCUMENTVERIFICATION });
     }
 
     async getAllPendingDocumentVerifications(
@@ -339,101 +343,102 @@ export class VerificationRequestsService {
                     locationSearch = {}
                     break;
             }
+        }
 
-            const [result, total] = await Promise.all([
-                this.verificationRequestRepository.aggregate([
-                    {
-                        $match: {
-                            type: VERIFICATION_TYPE.THRESHOLD,
-                            requestStatus: REQUEST_STATUS.OPEN,
-                            userType: REQUEST_USER_TYPE.VENDOR
-                        },
+        const [result, total] = await Promise.all([
+            this.verificationRequestRepository.aggregate([
+                {
+                    $match: {
+                        type: VERIFICATION_TYPE.THRESHOLD,
+                        requestStatus: REQUEST_STATUS.OPEN,
+                        userType: REQUEST_USER_TYPE.VENDOR
                     },
-                    {
-                        $lookup: {
-                            from: 'users',
-                            localField: 'userId',
-                            foreignField: '_id',
-                            as: 'userDetails',
-                        },
+                },
+                {
+                    $lookup: {
+                        from: 'users',
+                        localField: 'userId',
+                        foreignField: '_id',
+                        as: 'userDetails',
                     },
-                    { $unwind: '$userDetails' },
-                    {
-                        $match: {
-                            ...searchFilter,
-                            ...locationSearch
-                        }
-                    },
-                    {
-                        $facet: {
-                            result:
+                },
+                { $unwind: '$userDetails' },
+                {
+                    $match: {
+                        ...searchFilter,
+                        ...locationSearch
+                    }
+                },
+                {
+                    $facet: {
+                        result:
 
-                                [
-                                    ...(page && limit ? [{ $skip: skip }, { $limit: +limit }] : []), // Apply pagination only if provided
-                                    {
-                                        $project: {
-                                            vendorId: 1,
-                                            // type: 1,
-                                            minThresHold: 1,
-                                            // documents: 1,
-                                            // requestStatus: 1,
-                                            // approved: 1,
-                                            first_name: '$userDetails.first_name',
-                                            last_name: '$userDetails.last_name',
-                                            email: '$userDetails.email',
-                                            country: '$userDetails.location.country',
-                                            description: '$userDetails.description',
-                                            createdAt: 1,
-                                        },
-                                    },
-                                ],
-                            totalCount: [
+                            [
+                                ...(page && limit ? [{ $skip: skip }, { $limit: +limit }] : []), // Apply pagination only if provided
                                 {
-                                    $count: 'total',
+                                    $project: {
+                                        vendorId: 1,
+                                        // type: 1,
+                                        minThresHold: 1,
+                                        // documents: 1,
+                                        // requestStatus: 1,
+                                        // approved: 1,
+                                        first_name: '$userDetails.first_name',
+                                        last_name: '$userDetails.last_name',
+                                        email: '$userDetails.email',
+                                        country: '$userDetails.location.country',
+                                        description: '$userDetails.description',
+                                        createdAt: 1,
+                                    },
                                 },
                             ],
-                        },
+                        totalCount: [
+                            {
+                                $count: 'total',
+                            },
+                        ],
                     },
-                    {
-                        $unwind: '$totalCount',
-                    },
-                ]),
-                this.verificationRequestRepository.countDocuments({
-                    type: VERIFICATION_TYPE.THRESHOLD,
-                    requestStatus: REQUEST_STATUS.OPEN,
-                    userType: REQUEST_USER_TYPE.VENDOR
-                }),
-            ]);
+                },
+                {
+                    $unwind: '$totalCount',
+                },
+            ]),
+            this.verificationRequestRepository.countDocuments({
+                type: VERIFICATION_TYPE.THRESHOLD,
+                requestStatus: REQUEST_STATUS.OPEN,
+                userType: REQUEST_USER_TYPE.VENDOR
+            }),
+        ]);
 
-            const totalFiltered = result.length > 0 ? result[0].totalCount.total : 0;
-            const responseResult = result.length > 0 ? result[0].result : [];
+        const totalFiltered = result.length > 0 ? result[0].totalCount.total : 0;
+        const responseResult = result.length > 0 ? result[0].result : [];
 
-            const { totalPage, startIndex, endIndex, currentPageFilteredCount } =
-                getPaginationDetails({
-                    data: responseResult,
-                    count: totalFiltered,
-                    limit,
-                    skip,
-                });
+        const { totalPage, startIndex, endIndex, currentPageFilteredCount } =
+            getPaginationDetails({
+                data: responseResult,
+                count: totalFiltered,
+                limit,
+                skip,
+            });
 
-            const meta = {
-                totalFiltered,
-                total,
-                currentPage: page,
-                perPage: limit,
-                totalPage,
-                startIndex,
-                endIndex,
-                currentPageFilteredCount,
-                searchQuery,
-            };
+        const meta = {
+            totalFiltered,
+            total,
+            currentPage: page,
+            perPage: limit,
+            totalPage,
+            startIndex,
+            endIndex,
+            currentPageFilteredCount,
+            searchQuery,
+        };
 
-            return this.responseService.success(
-                await i18n.translate('messages.requestsRetrieve'),
-                { thresHoldRequests: responseResult, thresholdRequestCount: totalFiltered },
-                meta,
-            );
-        }
+        return this.responseService.success(
+            await i18n.translate('messages.requestsRetrieve'),
+            { thresHoldRequests: responseResult, thresholdRequestCount: totalFiltered },
+            meta,
+        );
+
     }
 
     async closeDocumentRequest(

@@ -1,5 +1,5 @@
 {
-    "type":{
+    "type": {
         "isIn": "type must be in a school_role, parent_role or vendor_role"
     },
     "data": {
@@ -364,5 +364,9 @@
         "isString": "userId must be a string",
         "isNotEmpty": "userId is required",
         "isMongoId": "The user ID must be a valid MongoDB ObjectId"
+    },
+    "docType": {
+        "isString": "docType must be a string",
+        "isNotEmpty": "docType is required"
     }
 }

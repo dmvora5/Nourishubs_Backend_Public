@@ -1,22 +1,21 @@
-import { BasicQueryDto, CurrentUser, FOODCHART_TYPE, IUser, JwtAuthGuard, LOCATION, PermissionGuard, PERMISSIONS, ROLES, SubPermissionGuard, Validate } from '@app/common';
 import { Body, Controller, Get, Patch, Post, Query, UseGuards } from '@nestjs/common';
+import { BasicQueryDto, CurrentUser, FOODCHART_TYPE, IUser, JwtAuthGuard, LOCATION, PermissionGuard, PERMISSIONS, ROLES, SubPermissionGuard, Validate } from '@app/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { I18n, I18nContext } from 'nestjs-i18n';
 import { FoodchartService } from 'src/modules/foodchart/foodchart.service';
-import { CreateFoodChartsWithOrthorityeDto } from './dtos/area-executive.dtos';
+import { I18n, I18nContext } from 'nestjs-i18n';
+import { CreateFoodChartsWithOrthorityeDto } from '../../area-executives/area-executive-foodchart/dtos/area-executive.dtos';
 import { ApproveFoodChartDto } from 'src/modules/foodchart/dtos/food-charts-dtos';
 
 @ApiBearerAuth()
-@ApiTags("Area-Executive / FoodChart")
-@Controller('area-executives-foodchart')
+@ApiTags("Distric-Executive / FoodChart")
+@Controller('distric-executive-foodchart')
 @PermissionGuard({
   permissions: [PERMISSIONS.FOOCHARTMANAGEMENT.permission],
-  roles: [ROLES.AREA_EXECUTIVE]
+  roles: [ROLES.DISTRICT_EXECUTIVE]
 })
 @UseGuards(JwtAuthGuard)
-export class AreaExecutiveFoodchartController {
+export class DistricExecutiveFoodchartController {
   constructor(private readonly foodChartService: FoodchartService) { }
-
 
   @SubPermissionGuard({
     permissions: [PERMISSIONS.FOOCHARTMANAGEMENT.subPermissions.GETFOODCHARTREQUESTS]
@@ -31,12 +30,11 @@ export class AreaExecutiveFoodchartController {
     return this.foodChartService.getFoodChartRequests(
       query,
       user,
-      FOODCHART_TYPE.SCHOOL,
-      LOCATION.CITY,
+      FOODCHART_TYPE.AREAEXECUTIVE,
+      LOCATION.DISTRICT,
       i18n,
     );
   }
-
 
   @Post()
   @SubPermissionGuard({
@@ -46,27 +44,23 @@ export class AreaExecutiveFoodchartController {
     @CurrentUser() user: IUser,
     @Body() payload: CreateFoodChartsWithOrthorityeDto,
     @I18n() i18n: I18nContext
-
   ) {
-
     return this.foodChartService.createFoodChart({
       allIds: {
         schoolAdminId: payload.schoolAdminId,
-        areaExecutiveId: user?._id
       },
       payload: {
         details: payload?.details,
         vendors: payload?.vendors
       },
-      type: FOODCHART_TYPE.AREAEXECUTIVE,
+      type: FOODCHART_TYPE.DISTRICTEXECUTIVE,
       i18n: i18n,
       loginUser: user,
       isEditable: false,
-      defaultApprove: false,
-
+      defaultApprove: true,
     })
-  }
 
+  }
 
   @Get("nearby-vendors")
   @Validate()
@@ -101,6 +95,5 @@ export class AreaExecutiveFoodchartController {
       FOODCHART_TYPE.AREAEXECUTIVE
     );
   }
-
 
 }

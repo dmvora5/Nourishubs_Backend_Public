@@ -38,8 +38,6 @@ import { VerificationRequestsService } from 'src/modules/verification-requests/v
     );
   }
 
-
-
   @SubPermissionGuard({
     permissions: [PERMISSIONS.VENDORMANAGEMENT.subPermissions.DOCUMENTVERIFICATIONLIST]
   })

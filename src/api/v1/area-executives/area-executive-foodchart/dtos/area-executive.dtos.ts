@@ -10,7 +10,7 @@ import {
 } from 'class-validator';
 import { NoRecurringDayConflict, VenderDayDto } from 'src/modules/foodchart/dtos/food-charts-dtos';
 
-export class CreateFoodChartsWithAreaExecutiveDto {
+export class CreateFoodChartsWithOrthorityeDto {
   @ApiProperty({
     description: 'Food chart details',
     example: 'detais',

@@ -359,5 +359,10 @@
         "isArray": "coordinates must be an array",
         "min": "Coordinates must have exactly two elements: [longitude, latitude].",
         "max": "Coordinates must have exactly two elements: [longitude, latitude]."
+    },
+    "userId": {
+        "isString": "userId must be a string",
+        "isNotEmpty": "userId is required",
+        "isMongoId": "The user ID must be a valid MongoDB ObjectId"
     }
 }

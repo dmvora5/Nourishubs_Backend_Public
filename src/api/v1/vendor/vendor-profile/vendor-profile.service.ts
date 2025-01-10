@@ -1,18 +1,18 @@
 import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { VendorRepository } from '../../users/user.repository';
-import { VENDOR_REQUEST_STATUS, VENDOR_VERIFICATION_TYPE } from '@app/common';
-import { DocumentRequestDto, ThressHoldRequestDto, UpdateVendorDto } from './dtos/vendor.dtos';
+import { UpdateVendorDto } from './dtos/vendor.dtos';
 import { I18nContext } from 'nestjs-i18n';
 import { CommonResponseService } from '@app/common/services';
-import { VendorRequestsRepository } from './vendor-request.repository';
+import { VerificationRequestsService } from 'src/modules/verification-requests/verification-requests.service';
+import { REQUEST_USER_TYPE } from '@app/common';
 
 @Injectable()
 export class VendorProfileService {
 
     constructor(
         private readonly userRepository: VendorRepository,
-        private readonly vendorRequestRepository: VendorRequestsRepository,
         private readonly responseService: CommonResponseService,
+        private readonly verificationRequestService: VerificationRequestsService
     ) { }
 
 
@@ -107,7 +107,8 @@ export class VendorProfileService {
         };
         const doc = { documents: updatedUser.documents };
 
-        this.generateDocumentRequest(id, doc, i18n);
+        await this.verificationRequestService.generateDocumentRequest(id, doc, REQUEST_USER_TYPE.VENDOR);
+
         return this.responseService.success(
             await i18n.translate('messages.userUpdated'),
             result,
@@ -116,57 +117,6 @@ export class VendorProfileService {
 
     }
 
-    async generateThresholdrequest(
-        vendorId: string,
-        payload: ThressHoldRequestDto,
-        i18n: I18nContext,
-    ) {
-        await this.vendorRequestRepository.findOneAndUpdate(
-            {
-                vendorId: vendorId,
-                requestStatus: VENDOR_REQUEST_STATUS.OPEN,
-                type: VENDOR_VERIFICATION_TYPE.THRESHOLD
-            },
-            {
-                minThresHold: payload.minThresHold,
-                vendorId: vendorId,
-                type: VENDOR_VERIFICATION_TYPE.THRESHOLD,
-                requestStatus: VENDOR_REQUEST_STATUS.OPEN,
-            },
-        );
-
-        return this.responseService.success(
-            await i18n.translate('messages.userUpdated'),
-            null,
-            {},
-        );
-    }
-
-    async generateDocumentRequest(
-        vendorId: string,
-        payload: DocumentRequestDto,
-        i18n: I18nContext,
-    ) {
-        await this.vendorRequestRepository.findOneAndUpdate(
-            {
-                vendorId: vendorId,
-                requestStatus: VENDOR_REQUEST_STATUS.OPEN,
-                type: VENDOR_VERIFICATION_TYPE.DOCUMENTVERIFICATION,
-            },
-            {
-                vendorId,
-                ...payload,
-                type: VENDOR_VERIFICATION_TYPE.DOCUMENTVERIFICATION,
-                requestStatus: VENDOR_REQUEST_STATUS.OPEN,
-            }
-        );
-
-        return this.responseService.success(
-            await i18n.translate('messages.userUpdated'),
-            null,
-            {},
-        );
-    }
 
     async getUserById(id: string, i18n: I18nContext) {
           const user = (await this.userRepository.findById(id))?.toObject();

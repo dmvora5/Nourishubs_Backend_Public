@@ -27,6 +27,8 @@ import { DistrictExecutiveUserManagementModule } from './api/v1/district-executi
 import { StateExecutiveUserManagementModule } from './api/v1/state-executive/user-management/user-management.module';
 import { AdminUserManagementModule } from './api/v1/admin/user-management/user-management.module';
 import { SuperAdminUserManagementModule } from './api/v1/super-admin/user-management/user-management.module';
+import { VerificationRequestsModule } from './modules/verification-requests/verification-requests.module';
+import { SuperAdminVendormanagementModule } from './api/v1/super-admin/super-admin-vendormanagement/super-admin-vendormanagement.module';
 @Module({
   imports: [
     CommonModule,
@@ -56,7 +58,9 @@ import { SuperAdminUserManagementModule } from './api/v1/super-admin/user-manage
     DistrictExecutiveUserManagementModule,
     StateExecutiveUserManagementModule,
     AdminUserManagementModule,
-    SuperAdminUserManagementModule
+    SuperAdminUserManagementModule,
+    VerificationRequestsModule,
+    SuperAdminVendormanagementModule
     // SeederModule
   ]
 })

@@ -2,19 +2,16 @@ import { Module } from '@nestjs/common';
 import { VendorProfileService } from './vendor-profile.service';
 import { VendorProfileController } from './vendor-profile.controller';
 import { UsersModule } from '../../users/users.module';
-import { MongooseModule } from '@nestjs/mongoose';
-import { VendorRequest, VendorRequestSchema } from './models/vendorRequest.schemas';
-import { VendorRequestsRepository } from './vendor-request.repository';
+import { VerificationRequestsModule } from 'src/modules/verification-requests/verification-requests.module';
 
 @Module({
   imports: [
     UsersModule,
-    MongooseModule.forFeature([
-      { name: VendorRequest.name, schema: VendorRequestSchema }
-    ])
+    VerificationRequestsModule
+
   ],
   controllers: [VendorProfileController],
-  providers: [VendorProfileService, VendorRequestsRepository],
-  exports: [VendorProfileService, VendorRequestsRepository]
+  providers: [VendorProfileService],
+  exports: [VendorProfileService]
 })
-export class VendorProfileModule {}
+export class VendorProfileModule { }

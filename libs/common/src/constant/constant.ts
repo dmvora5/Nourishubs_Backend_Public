@@ -9,23 +9,27 @@ export const ALLOWEDTYPE = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'
 export const MAXFILESIZE = 1024 * 1024 * 5
 
 
-export const VENDOR_VERIFICATION_TYPE = {
+export const VERIFICATION_TYPE = {
     THRESHOLD: "THRESHOLD",
     DOCUMENTVERIFICATION: "DOCUMENTVERIFICATION"
 }
 
-export const SCHOOL_VERIFICATION_TYPE = {
-    DOCUMENTVERIFICATION: "DOCUMENTVERIFICATION"
-}
-
-export const SCHOOL_REQUEST_STATUS = {
+export const REQUEST_STATUS = {
     OPEN: "OPEN",
     CLOSE: "CLOSE"
 }
 
-export const VENDOR_REQUEST_STATUS = {
-    OPEN: "OPEN",
-    CLOSE: "CLOSE"
+export const REQUEST_USER_TYPE = {
+    SCHOOL: "SCHOOL",
+    VENDOR: "VENDOR"
+}
+
+export const LOCATION = {
+    COUNTRY: "COUNTRY",
+    STATE: "STATE",
+    DISTRICT: "DISTRICT",
+    CITY: "CITY",
+    ALL: "ALL",
 }
 
 export const RADIUS_OF_EARTH_IN_METER = 6378137

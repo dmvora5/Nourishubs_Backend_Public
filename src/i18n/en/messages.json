@@ -106,7 +106,9 @@
     "statusNotChange": "You are not arthorized to change this user status",
     "invalidStatus": "Invalid status value",
     "statusIsSame": "User already have a this status",
-    "notificationsRetrieved": "Notification Fetch successfully"
+    "notificationsRetrieved": "Notification Fetch successfully",
+    "requestSubmite": "request submit successfully",
+    "requestsRetrieve": "request Fetched successfully"
 
   }
   

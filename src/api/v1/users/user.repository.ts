@@ -86,6 +86,13 @@ export class VendorRepository extends AbstractRepository<Vendor> {
         super(vendorModel);
     }
 
+    async findUserWithRolenName(id: string) {
+        return this.vendorModel.findById(id).populate({
+            path: 'role',
+            transform: (doc) => doc?.name,
+        });
+    }
+
 }
 
 @Injectable()

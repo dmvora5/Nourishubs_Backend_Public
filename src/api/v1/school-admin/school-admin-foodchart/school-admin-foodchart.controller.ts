@@ -27,12 +27,18 @@ export class SchoolAdminFoodchartController {
     @Body() payload: CreateFoodChartsDto,
     @I18n() i18n: I18nContext
   ) {
-    return await this.foodChartService.createFoodChart(
-      { schoolAdminId: user?._id },
+
+    return this.foodChartService.createFoodChart({
+      allIds: {
+        schoolAdminId: user?._id,
+      },
       payload,
-      FOODCHART_TYPE.SCHOOL,
-      i18n
-    );
+      type: FOODCHART_TYPE.SCHOOL,
+      i18n: i18n,
+      loginUser: user,
+      isEditable: true,
+      defaultApprove: false,
+    })
   }
 
 

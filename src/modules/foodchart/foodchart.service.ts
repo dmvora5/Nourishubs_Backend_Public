@@ -8,6 +8,16 @@ import * as moment from 'moment';
 import { v4 as uuid } from 'uuid';
 import { BasicQueryDto, getPaginationDetails, ILocation, IUser, LOCATION, ROLES } from '@app/common';
 
+interface ICreatFoodChart {
+    allIds: FooCharIdstDto,
+    payload: CreateFoodChartsDto,
+    type: string,
+    i18n: I18nContext,
+    isEditable?: boolean,
+    defaultApprove?: boolean,
+    loginUser: IUser
+}
+
 
 @Injectable()
 export class FoodchartService {
@@ -18,13 +28,15 @@ export class FoodchartService {
         private readonly responseService: CommonResponseService,
     ) { }
 
-    async createFoodChart(
-        allIds: FooCharIdstDto,
-        payload: CreateFoodChartsDto,
-        type: string,
-        i18n: I18nContext,
-        isEditable: boolean = true,
-    ) {
+    async createFoodChart({
+        allIds,
+        payload,
+        type,
+        i18n,
+        isEditable = true,
+        defaultApprove = false,
+        loginUser
+    }: ICreatFoodChart) {
         const formatDate = (date) => moment(new Date(date)).format('YYYY-MM-DD');
 
         const minDate = formatDate(
@@ -53,6 +65,15 @@ export class FoodchartService {
         payload.vendors.forEach((vendor) => {
             const existingRecord = existingVendorMap.get(vendor.date);
 
+            let data = {};
+
+            if (defaultApprove) {
+                data = {
+                    isApproved: "Approved",
+                    approvedBy: loginUser?._id
+                }
+            }
+
             if (!existingRecord) {
                 recordsToInsert.push({
                     ...vendor,
@@ -61,6 +82,7 @@ export class FoodchartService {
                     details: payload.details,
                     groupId: groupId,
                     ...allIds,
+                    ...data,
                     type,
                 });
                 return;
@@ -113,6 +135,7 @@ export class FoodchartService {
                                 details: payload.details,
                                 type,
                                 ...allIds,
+                                ...data,
                             },
                         },
                         upsert: true,

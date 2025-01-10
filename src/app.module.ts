@@ -34,6 +34,7 @@ import { SchoolAdminFoodchartModule } from './api/v1/school-admin/school-admin-f
 import { AreaExecutiveFoodchartModule } from './api/v1/area-executives/area-executive-foodchart/area-executive-foodchart.module';
 import { SchoolAdminDashboardModule } from './api/v1/school-admin/school-admin-dashboard/school-admin-dashboard.module';
 import { StaffManagementModule } from './api/v1/school-admin/staff-management/staff-management.module';
+import { DistricExecutiveFoodchartModule } from './api/v1/district-executive/distric-executive-foodchart/distric-executive-foodchart.module';
 @Module({
   imports: [
     CommonModule,
@@ -70,7 +71,8 @@ import { StaffManagementModule } from './api/v1/school-admin/staff-management/st
     AreaExecutiveFoodchartModule,
     SchoolAdminDashboardModule,
     StaffManagementModule,
-    SuperAdminOrderManagement
+    SuperAdminOrderManagement,
+    DistricExecutiveFoodchartModule
     // SeederModule
   ]
 })

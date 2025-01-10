@@ -41,7 +41,6 @@ export class UsersService {
         return this.userRepository.findUserWithPermissions(id);
     }
 
-
     async createUserWithRoleAndPermission(
         loginUserRole: IRole,
         payload: CreateUserDto,
@@ -295,6 +294,7 @@ export class UsersService {
             throw error;
         }
     }
+
     async getAllUsers(
         query: BasicQueryDto,
         i18n: I18nContext,
@@ -418,6 +418,7 @@ export class UsersService {
                     }
                     break;
                 default:
+                    locationSearch = {};
                     break;
             }
         }
@@ -457,6 +458,7 @@ export class UsersService {
 
 
     }
+
     async getSuspendedAccounts(
         query: BasicQueryDto,
         i18n: I18nContext,
@@ -517,6 +519,7 @@ export class UsersService {
             throw error;
         }
     }
+
     async statistics() {
         const suspended = await this.userRepository.countDocuments({ status: 'suspended' }); // Count all non-deleted users
         const users = {

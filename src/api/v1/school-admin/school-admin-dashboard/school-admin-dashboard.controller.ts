@@ -98,9 +98,9 @@ export class SchoolAdminDashboardController {
   }
 
 
-  @Delete('delete-document')
-  async deleteDocument(@CurrentUser() user: IUser, @Body() payload: DeleteDocumentDto, @I18n() i18n: I18nContext) {
-    return this.schoolAdminDashboardService.deleteDocument(user?._id, payload.docType, i18n);
-  }
+  // @Delete('delete-document')
+  // async deleteDocument(@CurrentUser() user: IUser, @Body() payload: DeleteDocumentDto, @I18n() i18n: I18nContext) {
+  //   return this.schoolAdminDashboardService.deleteDocument(user?._id, payload.docType, i18n);
+  // }
 
 }

@@ -2,16 +2,26 @@ import { BadRequestException, ConflictException, ForbiddenException, Injectable,
 import { OtherUserRepository, ParentRepository, SchoolMembersRepository, SchoolRepository, UserRepository, VendorRepository } from './user.repository';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { I18nContext } from 'nestjs-i18n';
-import { IRole, ROLES } from '@app/common';
+import { IRole, IUser, LOCATION, ROLES } from '@app/common';
 import { CommonResponseService } from '@app/common/services';
 import { SuspenDto } from './dtos/suspend.dto';
 import { UpdateUserDto } from './dtos/update-user.dto';
 import { UsernotificationService } from '../usernotification/usernotification.service';
-import { BasicQueryDto,getPaginationDetails } from '@app/common';
+import { BasicQueryDto, getPaginationDetails } from '@app/common';
 const PENDING_VEROFICATION_ROLES = [
     ROLES.VENDOR,
     ROLES.SCHOOL
 ];
+
+
+interface GetUsersInputs {
+    query: BasicQueryDto;
+    i18n: I18nContext,
+    user: IUser,
+    roles: string[],
+    location?: string,
+    baseFilter?: Object
+}
 
 @Injectable()
 export class UsersService {
@@ -310,14 +320,14 @@ export class UsersService {
 
         const filter = { ...baseFilter, ...searchFilter };
 
-        const [permissions, total, totalFiltered] = await Promise.all([
+        const [users, total, totalFiltered] = await Promise.all([
             this.userRepository.getAllUserWithRoles({ filter, skip, limit, orderBy }),
             this.userRepository.countDocuments({ status: 'active' }), // Count all non-deleted users
             this.userRepository.countDocuments(filter),
         ]);
 
         const { totalPage, startIndex, endIndex, currentPageFilteredCount } = getPaginationDetails({
-            data: permissions,
+            data: users,
             count: totalFiltered,
             limit,
             skip,
@@ -337,11 +347,115 @@ export class UsersService {
         }
 
         const suspended = await this.userRepository.countDocuments({ status: 'suspended' }); // Count all non-deleted users
-        const users = {
-            "users": permissions,
+        const data = {
+            "users": users,
             "suspended_accounts": suspended
         };
-        return this.responseService.success(await i18n.translate('messages.usersRetrieved'), users, meta);
+        return this.responseService.success(await i18n.translate('messages.usersRetrieved'), data, meta);
+    }
+
+    async getAllUsersWithFilters({
+        query,
+        i18n,
+        user,
+        roles = [],
+        location,
+        baseFilter = { status: 'active' }
+    }: GetUsersInputs) {
+        const { page = 1, limit = 10, searchQuery, orderBy = { createdAt: -1 } } = query;
+
+        const skip = (page - 1) * limit;
+
+        const searchFilter = searchQuery
+            ? {
+                $or: [
+                    { email: { $regex: searchQuery, $options: 'i' } },
+                    { first_name: { $regex: searchQuery, $options: 'i' } },
+                    { last_name: { $regex: searchQuery, $options: 'i' } }
+                ]
+            }
+            : {};
+
+        let filter: any = { ...baseFilter, ...searchFilter };
+
+        if (roles && roles.length) {
+            filter = { ...filter, role: { $in: roles } };
+        }
+
+        let locationSearch = {};
+        if (location) {
+            switch (location) {
+                case LOCATION.COUNTRY:
+                    locationSearch = {
+                        'location.country': {
+                            $regex: `^${user.location.district.trim()}$`,
+                            $options: 'i',
+                        }
+                    }
+                    break;
+                case LOCATION.STATE:
+                    locationSearch = {
+                        'location.state': {
+                            $regex: `^${user.location.district.trim()}$`,
+                            $options: 'i',
+                        }
+                    }
+                    break;
+                case LOCATION.DISTRICT:
+                    locationSearch = {
+                        'location.district': {
+                            $regex: `^${user.location.district.trim()}$`,
+                            $options: 'i',
+                        }
+                    }
+                    break;
+                case LOCATION.CITY:
+                    locationSearch = {
+                        'location.city': {
+                            $regex: `^${user.location.district.trim()}$`,
+                            $options: 'i',
+                        }
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        filter = {
+            ...filter,
+            ...locationSearch
+        }
+
+        const [users, total, totalFiltered] = await Promise.all([
+            this.userRepository.getAllUserWithRoles({ filter, skip, limit, orderBy }),
+            this.userRepository.countDocuments({ status: 'active' }), // Count all non-deleted users
+            this.userRepository.countDocuments(filter),
+        ]);
+
+        const { totalPage, startIndex, endIndex, currentPageFilteredCount } = getPaginationDetails({
+            data: users,
+            count: totalFiltered,
+            limit,
+            skip,
+        })
+
+        const meta = {
+            totalFiltered,
+            total,
+            currentPage: page,
+            perPage: limit,
+            totalPage,
+            startIndex,
+            endIndex,
+            currentPageFilteredCount,
+            searchQuery,
+            orderBy
+        }
+
+        return this.responseService.success(await i18n.translate('messages.usersRetrieved'), { users }, meta);
+
+
     }
     async getSuspendedAccounts(
         query: BasicQueryDto,

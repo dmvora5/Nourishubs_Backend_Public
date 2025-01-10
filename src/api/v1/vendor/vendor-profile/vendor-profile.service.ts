@@ -119,21 +119,21 @@ export class VendorProfileService {
 
 
     async getUserById(id: string, i18n: I18nContext) {
-          const user = (await this.userRepository.findById(id))?.toObject();
-    
-          if (!user) {
+        const user = (await this.userRepository.findById(id))?.toObject();
+
+        if (!user) {
             throw new NotFoundException(
-              await i18n.translate('messages.userNotFound'),
+                await i18n.translate('messages.userNotFound'),
             );
-          }
-          const result = {
+        }
+        const result = {
             userData: user,
-          };
-          return this.responseService.success(
+        };
+        return this.responseService.success(
             await i18n.translate('messages.userRetrieved'),
             result,
             null,
-          );
-      }
+        );
+    }
 
 }

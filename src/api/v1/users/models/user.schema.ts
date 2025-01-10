@@ -139,6 +139,9 @@ export class School extends OtherUsers {
     @Prop()
     gender: string;
 
+    @Prop({ type: Map, of: String, default: new Map() })
+    documents: Map<string, string>;
+
 }
 
 export const SchoolSchema = SchemaFactory.createForClass(School);

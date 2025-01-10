@@ -81,12 +81,12 @@ export class VendorManagementService {
 
 
 
-        const filter = { ...searchFilter, ...commanFilter };
+        const filter = { ...searchFilter, ...commanFilter, ...locationSearch };
         console.log(filter);
         const [vendors, total, totalFiltered, pendingRequests] = await Promise.all([
             this.userRepository.findWithPagination(filter, { skip, limit, orderBy }),
             this.userRepository.countDocuments(commanFilter), // Count all non-deleted users
-            this.userRepository.countDocuments({ ...searchFilter, ...commanFilter }),
+            this.userRepository.countDocuments({ ...searchFilter, ...commanFilter, ...locationSearch }),
             this.verificationRequestService.getRequestCounts({
                 requestStatus: 'OPEN',
                 type: 'DOCUMENTVERIFICATION',

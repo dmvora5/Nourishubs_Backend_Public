@@ -98,6 +98,7 @@ export const PERMISSIONS = {
         subPermissions: {
             CREATEFOODCHART: "create_foodchart",
             APPROVEFOODCHART: "approve_foodchart",
+            GETFOODCHARTREQUESTS: "get_foodchart_requests",
         }
     },
     PARENTMANAGEMENT: {

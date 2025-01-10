@@ -1,3 +1,4 @@
+import { FOODCHART_TYPE } from "@app/common";
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import mongoose, { Document } from "mongoose";
 
@@ -45,7 +46,7 @@ export class VendorDay extends Document {
     @Prop()
     details: string;
 
-    @Prop()
+    @Prop({ enum: Object.values(FOODCHART_TYPE) })
     type: string;
 
 

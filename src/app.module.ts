@@ -30,6 +30,10 @@ import { SuperAdminUserManagementModule } from './api/v1/super-admin/user-manage
 import { VerificationRequestsModule } from './modules/verification-requests/verification-requests.module';
 import { SuperAdminVendormanagementModule } from './api/v1/super-admin/super-admin-vendormanagement/super-admin-vendormanagement.module';
 import { SuperAdminOrderManagement } from './api/v1/super-admin/order-management/orders.module';
+import { SchoolAdminFoodchartModule } from './api/v1/school-admin/school-admin-foodchart/school-admin-foodchart.module';
+import { AreaExecutiveFoodchartModule } from './api/v1/area-executives/area-executive-foodchart/area-executive-foodchart.module';
+import { SchoolAdminDashboardModule } from './api/v1/school-admin/school-admin-dashboard/school-admin-dashboard.module';
+import { StaffManagementModule } from './api/v1/school-admin/staff-management/staff-management.module';
 @Module({
   imports: [
     CommonModule,
@@ -62,6 +66,10 @@ import { SuperAdminOrderManagement } from './api/v1/super-admin/order-management
     SuperAdminUserManagementModule,
     VerificationRequestsModule,
     SuperAdminVendormanagementModule,
+    SchoolAdminFoodchartModule,
+    AreaExecutiveFoodchartModule,
+    SchoolAdminDashboardModule,
+    StaffManagementModule,
     SuperAdminOrderManagement
     // SeederModule
   ]

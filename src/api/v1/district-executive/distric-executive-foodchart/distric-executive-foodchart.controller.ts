@@ -72,7 +72,7 @@ export class DistricExecutiveFoodchartController {
     return await this.foodChartService.getNearByVendorList(
       queryData,
       user?.location,
-      LOCATION.CITY,
+      LOCATION.DISTRICT,
       i18n
     );
   }

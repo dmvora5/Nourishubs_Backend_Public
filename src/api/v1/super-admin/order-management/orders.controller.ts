@@ -89,13 +89,7 @@ export class OrdersController {
     status: 200,
     description: 'Cancel order request handled successfully.',
   })
-  @UsePipes(
-    new ValidationPipe({
-      whitelist: true,
-      forbidNonWhitelisted: true,
-      transform: true,
-    }),
-  )
+  @Validate()
   async cancleOrderRequest(
     @Param('id', ValidateObjectIdPipe) id: string,
     @Body() payload: CancleOrderDto,

@@ -174,9 +174,12 @@ export class VendorManagementService {
         location: string,
         i18n: I18nContext,
     ) {
-        
 
-        const commanFilter: any = { role: ROLES.VENDOR,verificationStatus:'approved' };
+
+        const commanFilter: any = {
+            role: ROLES.VENDOR, verificationStatus: 'approved',
+            thresHoldApprove: "approved"
+        };
 
         let locationSearch = {};
         if (location) {
@@ -217,7 +220,7 @@ export class VendorManagementService {
                     break;
             }
         }
-     
+
 
 
 
@@ -230,7 +233,7 @@ export class VendorManagementService {
         };
 
         const resData = {
-            "vendors":vendors,
+            "vendors": vendors,
         };
 
         return this.responseService.success(

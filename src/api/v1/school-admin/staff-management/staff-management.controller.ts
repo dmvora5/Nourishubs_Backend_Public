@@ -1,5 +1,4 @@
 import { Body, Controller, Delete, Get, Param, Post, Query, UseGuards } from '@nestjs/common';
-import { StaffManagementService } from './staff-management.service';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { BasicQueryDto, CurrentRole, CurrentUser, IRole, IUser, JwtAuthGuard, LOCATION, PermissionGuard, PERMISSIONS, ROLES, SubPermissionGuard, Validate, ValidateObjectIdPipe } from '@app/common';
 import { UsersService } from '../../users/users.service';
@@ -16,7 +15,6 @@ import { I18n, I18nContext } from 'nestjs-i18n';
 @UseGuards(JwtAuthGuard)
 export class StaffManagementController {
   constructor(
-    private readonly staffManagementService: StaffManagementService,
     private readonly userService: UsersService,
   ) { }
 

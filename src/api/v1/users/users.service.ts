@@ -20,7 +20,8 @@ interface GetUsersInputs {
     user: IUser,
     roles: string[],
     location?: string,
-    baseFilter?: Object
+    baseFilter?: Object,
+    select?: string
 }
 
 @Injectable()
@@ -360,7 +361,8 @@ export class UsersService {
         user,
         roles = [],
         location,
-        baseFilter = { status: 'active' }
+        baseFilter = { status: 'active' },
+        select,
     }: GetUsersInputs) {
         const { page = 1, limit = 10, searchQuery, orderBy = { createdAt: -1 } } = query;
 
@@ -429,7 +431,7 @@ export class UsersService {
         }
 
         const [users, total, totalFiltered] = await Promise.all([
-            this.userRepository.getAllUserWithRoles({ filter, skip, limit, orderBy }),
+            this.userRepository.getAllUserWithRoles({ filter, skip, limit, orderBy, select }),
             this.userRepository.countDocuments({ status: 'active' }), // Count all non-deleted users
             this.userRepository.countDocuments(filter),
         ]);

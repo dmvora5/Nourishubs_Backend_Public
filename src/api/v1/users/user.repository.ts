@@ -36,17 +36,19 @@ export class UserRepository extends AbstractRepository<User> {
         filter = {},         // Default to an empty object
         skip = 0,            // Default to 0 (no skipping)
         limit = 0,           // Default to 0 (no limit, fetch all)
-        orderBy = {},        // Default to an empty object (no specific order)
+        orderBy = {},      // Default to an empty object (no specific order)
+        select = '-permissions'
       }: {
         filter?: any;
         skip?: number;
         limit?: number;
         orderBy?: Record<string, any>;
+        select?: string;
       }): Promise<any>
       {
         console.log(filter);
        return this.userModel
-        .find(filter, '-permissions')
+        .find(filter, `${select || ''}`)
         .populate({
           path: 'role',
           select: 'name',

@@ -33,6 +33,7 @@ import {
 import { MealSelectionService } from 'src/modules/meal-selection/meal-selection.service';
 import { OrdersService } from 'src/modules/orders/orders.service';
 import { CancleOrderDto } from 'src/modules/orders/dtos/cancle-order.dtos';
+import { VendorManagementService } from 'src/modules/vendor-management/vendor-management.service';
 @ApiBearerAuth()
 @ApiTags('Super-Admin / Order-Management')
 @Controller('super-admin-order-management')
@@ -41,6 +42,7 @@ export class OrdersController {
   constructor(
     private readonly mealSelectionService: MealSelectionService,
     private readonly parentmealSelectionService: MealSelectionService,
+    private readonly vendorManagementService: VendorManagementService,
     private readonly orderService: OrdersService,
   ) { }
 
@@ -110,11 +112,10 @@ export class OrdersController {
   })
   @Validate()
   async getNearByVendorList(
-    @Query() query: BasicQueryDto,
-    @Query('vendorId') vendorId: string = '',
+    @CurrentUser() user: IUser,
     @I18n() i18n: I18nContext,
   ) {
-    return await this.orderService.getNearByVendorList(query, vendorId, i18n);
+    return await this.vendorManagementService.allApprovedVendors(user,LOCATION.ALL,i18n);
   }
 
   // @Get('get-all-categories')

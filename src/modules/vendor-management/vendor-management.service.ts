@@ -169,5 +169,74 @@ export class VendorManagementService {
             vendor,
         );
     }
+    async allApprovedVendors(
+        user: IUser,
+        location: string,
+        i18n: I18nContext,
+    ) {
+        
 
+        const commanFilter: any = { role: ROLES.VENDOR,verificationStatus:'approved' };
+
+        let locationSearch = {};
+        if (location) {
+            switch (location) {
+                case LOCATION.COUNTRY:
+                    locationSearch = {
+                        'location.country': {
+                            $regex: `^${user.location.district.trim()}$`,
+                            $options: 'i',
+                        }
+                    }
+                    break;
+                case LOCATION.STATE:
+                    locationSearch = {
+                        'location.state': {
+                            $regex: `^${user.location.district.trim()}$`,
+                            $options: 'i',
+                        }
+                    }
+                    break;
+                case LOCATION.DISTRICT:
+                    locationSearch = {
+                        'location.district': {
+                            $regex: `^${user.location.district.trim()}$`,
+                            $options: 'i',
+                        }
+                    }
+                    break;
+                case LOCATION.CITY:
+                    locationSearch = {
+                        'location.city': {
+                            $regex: `^${user.location.district.trim()}$`,
+                            $options: 'i',
+                        }
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+     
+
+
+
+        const filter = { ...commanFilter, ...locationSearch };
+        console.log(filter);
+        const [vendors] = await Promise.all([
+            this.userRepository.find(filter)
+        ]);
+        const meta = {
+        };
+
+        const resData = {
+            "vendors":vendors,
+        };
+
+        return this.responseService.success(
+            await i18n.translate('messages.usersRetrieved'),
+            resData,
+            meta,
+        );
+    }
 }

@@ -1,7 +1,7 @@
 import { BasicQueryDto, CurrentUser, IUser, JwtAuthGuard, PermissionGuard, PERMISSIONS, ROLES, SubPermissionGuard, Validate, ValidateObjectIdPipe } from "@app/common";
 import { Body, Controller, Get, Param, Patch, Post, Query, UploadedFile, UseGuards, UseInterceptors } from "@nestjs/common";
 import { FileInterceptor } from "@nestjs/platform-express";
-import { ApiBearerAuth, ApiConsumes, ApiTags } from "@nestjs/swagger";
+import { ApiBearerAuth, ApiConsumes, ApiQuery, ApiTags } from "@nestjs/swagger";
 import { I18n, I18nContext } from "nestjs-i18n";
 import { CreateKidsDto, UpdateKidsDto } from "src/modules/kids/dtos/kids-dashboards.dtos";
 import { KidService } from "src/modules/kids/kid.service";
@@ -22,6 +22,10 @@ export class KidsDashboardController {
     passthrough: true
   })
   @Get()
+  @ApiQuery({ name: 'page', description: 'pagenumber', required: false, example: 1 })
+  @ApiQuery({ name: 'limit', description: 'records per page', required: false, example: 10 })
+  @ApiQuery({ name: 'searchQuery', description: 'SearchQuery', required: false })
+  @Validate()
   async getAllUsers(
     @Query() query: BasicQueryDto,
     @CurrentUser() user: IUser,

@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, Patch, Post, Query, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
 import { SchoolAdminDashboardService } from './school-admin-dashboard.service';
-import { ApiBearerAuth, ApiBody, ApiConsumes, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiConsumes, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { BasicQueryDto, CurrentUser, IUser, JwtAuthGuard, PermissionGuard, PERMISSIONS, ROLES, SubPermissionGuard, Validate } from '@app/common';
 import { I18n, I18nContext } from 'nestjs-i18n';
 import { DeleteDocumentDto, RequestDto, UpdateSchoolDto } from './dtos/school-admin.dto';
@@ -27,6 +27,9 @@ export class SchoolAdminDashboardController {
     permissions: [PERMISSIONS.SCHOOLADMINDASHBOARD.subPermissions.PARENTREGISTRATIONREQUESTLIST],
   })
   @Get('/registration-requests')
+  @ApiQuery({ name: 'page', description: 'pagenumber', required: false, example: 1 })
+  @ApiQuery({ name: 'limit', description: 'records per page', required: false, example: 10 })
+  @ApiQuery({ name: 'searchQuery', description: 'SearchQuery', required: false })
   @Validate()
   getParentsrequest(
     @CurrentUser() user: IUser,

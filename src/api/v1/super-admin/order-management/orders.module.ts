@@ -7,7 +7,6 @@ import { UsersModule } from '../../users/users.module';
 import { VendorManagementModule } from 'src/modules/vendor-management/vendor-management.module';
 @Module({
   imports: [
-    MealSelectionModule,
     OrdersModule,
     UsersModule,
     VendorManagementModule

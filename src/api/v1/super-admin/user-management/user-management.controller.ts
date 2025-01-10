@@ -38,6 +38,10 @@ export class UserManagementController {
       permissions: [PERMISSIONS.USERMANAGEMENT.subPermissions.GETALLUSERS]
     })
     @Get('all-users')
+    @ApiQuery({ name: 'page', description: 'pagenumber', required: false, example: 1 })
+    @ApiQuery({ name: 'limit', description: 'records per page', required: false, example: 10 })
+    @ApiQuery({ name: 'searchQuery', description: 'SearchQuery', required: false })
+    @Validate()
     async getAllPermissions(
       @Query() query: BasicQueryDto,
       @I18n() i18: I18nContext,
@@ -99,6 +103,10 @@ export class UserManagementController {
   
   
     @Get('suspended-users')
+    @ApiQuery({ name: 'page', description: 'pagenumber', required: false, example: 1 })
+    @ApiQuery({ name: 'limit', description: 'records per page', required: false, example: 10 })
+    @ApiQuery({ name: 'searchQuery', description: 'SearchQuery', required: false })
+    @Validate()
     async getSuspendedAccounts(
       @Query() query: BasicQueryDto,
       @I18n() i18n: I18nContext,
@@ -116,7 +124,6 @@ export class UserManagementController {
       permissions: [PERMISSIONS.USERMANAGEMENT.subPermissions.DELETEUSERS]
     })
     @Get(':id')
-    @ApiQuery({ name: 'targetedUserId', description: 'access users', required: false })
     async getUserById(
       @Param('id', ValidateObjectIdPipe) id: string,
       @CurrentRole() role: IRole,

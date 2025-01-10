@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Post, Query, UseGuards } from '@nestjs/common';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { CurrentUser, FOODCHART_TYPE, IUser, JwtAuthGuard, LOCATION, PermissionGuard, PERMISSIONS, ROLES, SearchNearByQuery, SubPermissionGuard, Validate } from '@app/common';
+import { ApiBearerAuth, ApiQuery, ApiTags } from '@nestjs/swagger';
+import { BasicQueryDto, CurrentUser, FOODCHART_TYPE, IUser, JwtAuthGuard, LOCATION, PermissionGuard, PERMISSIONS, ROLES, SubPermissionGuard, Validate } from '@app/common';
 import { FoodchartService } from 'src/modules/foodchart/foodchart.service';
 import { AvailbleVendor, CreateFoodChartsDto } from 'src/modules/foodchart/dtos/food-charts-dtos';
 import { I18n, I18nContext } from 'nestjs-i18n';
@@ -58,9 +58,12 @@ export class SchoolAdminFoodchartController {
 
 
   @Get("nearby-vendors")
+  @ApiQuery({ name: 'page', description: 'pagenumber', required: false, example: 1 })
+  @ApiQuery({ name: 'limit', description: 'records per page', required: false, example: 10 })
+  @ApiQuery({ name: 'searchQuery', description: 'SearchQuery', required: false })
   @Validate()
   async getNearByVendorList(
-    @Query() queryData: SearchNearByQuery,
+    @Query() queryData: BasicQueryDto,
     @CurrentUser() user: IUser,
     @I18n() i18n: I18nContext
   ) {

@@ -38,6 +38,10 @@ export class UserManagementController {
     permissions: [PERMISSIONS.USERMANAGEMENT.subPermissions.GETALLUSERS]
   })
   @Get('all-users')
+  @ApiQuery({ name: 'page', description: 'pagenumber', required: false, example: 1 })
+  @ApiQuery({ name: 'limit', description: 'records per page', required: false, example: 10 })
+  @ApiQuery({ name: 'searchQuery', description: 'SearchQuery', required: false })
+  @Validate()
   async getAllPermissions(
     @Query() query: BasicQueryDto,
     @I18n() i18: I18nContext,

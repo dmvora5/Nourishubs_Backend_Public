@@ -1,5 +1,5 @@
 import { Body, Controller, Delete, Get, Param, Post, Query, UseGuards } from '@nestjs/common';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { BasicQueryDto, CurrentRole, CurrentUser, IRole, IUser, JwtAuthGuard, LOCATION, PermissionGuard, PERMISSIONS, ROLES, SubPermissionGuard, Validate, ValidateObjectIdPipe } from '@app/common';
 import { UsersService } from '../../users/users.service';
 import { CreateUserDto } from '../../users/dtos/create-user.dto';
@@ -40,8 +40,11 @@ export class StaffManagementController {
     permissions: [PERMISSIONS.STAFFMANAGEMENT.subPermissions.GETALLSTAFF]
   })
   @Get()
+  @ApiQuery({ name: 'page', description: 'pagenumber', required: false, example: 1 })
+  @ApiQuery({ name: 'limit', description: 'records per page', required: false, example: 10 })
+  @ApiQuery({ name: 'searchQuery', description: 'SearchQuery', required: false })
   @Validate()
-  async getAllPermissions(
+  async getAllStaffMembers(
     @CurrentUser() user: IUser,
     @Query() query: BasicQueryDto,
     @I18n() i18n: I18nContext

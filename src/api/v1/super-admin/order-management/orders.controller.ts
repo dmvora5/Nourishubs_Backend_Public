@@ -30,7 +30,6 @@ import {
   ValidateObjectIdPipe,
   LOCATION
 } from '@app/common';
-import { MealSelectionService } from 'src/modules/meal-selection/meal-selection.service';
 import { OrdersService } from 'src/modules/orders/orders.service';
 import { CancleOrderDto } from 'src/modules/orders/dtos/cancle-order.dtos';
 import { VendorManagementService } from 'src/modules/vendor-management/vendor-management.service';
@@ -40,14 +39,15 @@ import { VendorManagementService } from 'src/modules/vendor-management/vendor-ma
 @UseGuards(JwtAuthGuard)
 export class OrdersController {
   constructor(
-    private readonly mealSelectionService: MealSelectionService,
-    private readonly parentmealSelectionService: MealSelectionService,
     private readonly vendorManagementService: VendorManagementService,
     private readonly orderService: OrdersService,
   ) { }
 
 
   @Get('all-cancle-orders')
+  @ApiQuery({ name: 'page', description: 'pagenumber', required: false, example: 1 })
+  @ApiQuery({ name: 'limit', description: 'records per page', required: false, example: 10 })
+  @ApiQuery({ name: 'searchQuery', description: 'SearchQuery', required: false })
   @Validate()
   async getAllCancleOrders(
     @Query() query: BasicQueryDto,
@@ -99,6 +99,9 @@ export class OrdersController {
   }
 
   @Get('nearby-vendors')
+  @ApiQuery({ name: 'page', description: 'pagenumber', required: false, example: 1 })
+  @ApiQuery({ name: 'limit', description: 'records per page', required: false, example: 10 })
+  @ApiQuery({ name: 'searchQuery', description: 'SearchQuery', required: false })
   @ApiOperation({ summary: 'Get a list of nearby vendors' })
   @ApiResponse({
     status: 200,

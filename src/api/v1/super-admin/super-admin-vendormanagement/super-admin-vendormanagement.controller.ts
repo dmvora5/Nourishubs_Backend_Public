@@ -1,6 +1,6 @@
 import { BasicQueryDto, CurrentUser, IUser, JwtAuthGuard, LOCATION, PermissionGuard, PERMISSIONS, REQUEST_USER_TYPE, ROLES, SubPermissionGuard, Validate, ValidateObjectIdPipe } from '@app/common';
 import { Body, Controller, Get, Param, Patch, Query, UseGuards } from '@nestjs/common';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { I18n, I18nContext } from 'nestjs-i18n';
 import { SuspenVendorDto } from 'src/modules/vendor-management/dtos/vendors.dtos';
 import { VendorManagementService } from 'src/modules/vendor-management/vendor-management.service';
@@ -25,6 +25,10 @@ import { VerificationRequestsService } from 'src/modules/verification-requests/v
     permissions: [PERMISSIONS.VENDORMANAGEMENT.subPermissions.GETALLVENDORS]
   })
   @Get()
+  @ApiQuery({ name: 'page', description: 'pagenumber', required: false, example: 1 })
+  @ApiQuery({ name: 'limit', description: 'records per page', required: false, example: 10 })
+  @ApiQuery({ name: 'searchQuery', description: 'SearchQuery', required: false })
+  @Validate()
   async getAllVendors(
     @Query() query: BasicQueryDto,
     @CurrentUser() user: IUser,
@@ -42,6 +46,10 @@ import { VerificationRequestsService } from 'src/modules/verification-requests/v
     permissions: [PERMISSIONS.VENDORMANAGEMENT.subPermissions.DOCUMENTVERIFICATIONLIST]
   })
   @Get('documnets')
+  @ApiQuery({ name: 'page', description: 'pagenumber', required: false, example: 1 })
+  @ApiQuery({ name: 'limit', description: 'records per page', required: false, example: 10 })
+  @ApiQuery({ name: 'searchQuery', description: 'SearchQuery', required: false })
+  @Validate()
   async documentVerificationList(
     @Query() query: BasicQueryDto,
     @CurrentUser() user: IUser,
@@ -73,6 +81,10 @@ import { VerificationRequestsService } from 'src/modules/verification-requests/v
     permissions: [PERMISSIONS.VENDORMANAGEMENT.subPermissions.THRESHOLDVERIFICATIONLIST]
   })
   @Get('threshold')
+  @ApiQuery({ name: 'page', description: 'pagenumber', required: false, example: 1 })
+  @ApiQuery({ name: 'limit', description: 'records per page', required: false, example: 10 })
+  @ApiQuery({ name: 'searchQuery', description: 'SearchQuery', required: false })
+  @Validate()
   async thresholdtVerificationList(
     @Query() query: BasicQueryDto,
     @CurrentUser() user: IUser,

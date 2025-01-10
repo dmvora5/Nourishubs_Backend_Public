@@ -2,7 +2,7 @@ import { Controller, Get, Query, UseGuards } from '@nestjs/common';
 import { BasicQueryDto, CurrentRole, CurrentUser, IRole, IUser, JwtAuthGuard, LOCATION, ROLES, Validate } from '@app/common';
 import { I18n, I18nContext } from 'nestjs-i18n';
 import { UsersService } from '../users/users.service';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiQuery, ApiTags } from '@nestjs/swagger';
 
 @ApiBearerAuth()
 @ApiTags("Common")
@@ -15,6 +15,9 @@ export class CommonapisController {
 
 
   @Get("/schools")
+  @ApiQuery({ name: 'page', description: 'pagenumber', required: false, example: 1 })
+  @ApiQuery({ name: 'limit', description: 'records per page', required: false, example: 10 })
+  @ApiQuery({ name: 'searchQuery', description: 'SearchQuery', required: false })
   @Validate()
   getSchoolsList(
     @Query() query: BasicQueryDto,

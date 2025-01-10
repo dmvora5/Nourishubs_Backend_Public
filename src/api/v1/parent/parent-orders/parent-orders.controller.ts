@@ -1,9 +1,8 @@
 import { BasicQueryDto, CurrentUser, IUser, JwtAuthGuard, KidVerificationGuard, Validate } from '@app/common';
 import { CommonResponseService } from '@app/common/services';
 import { Body, Controller, Get, NotFoundException, Post, Query, UseGuards } from '@nestjs/common';
-import { ApiBearerAuth, ApiBody, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { I18n, I18nContext } from 'nestjs-i18n';
-import { KidService } from 'src/modules/kids/kid.service';
 import { MealSelectionService } from 'src/modules/meal-selection/meal-selection.service';
 import { OrdersService } from 'src/modules/orders/orders.service';
 import { KidIdDto } from './dtos/parent-orders.dto';
@@ -17,7 +16,6 @@ export class ParentOrdersController {
     private readonly MealSelectionService: MealSelectionService,
     private readonly orderService: OrdersService,
     private readonly responseService: CommonResponseService,
-    private readonly kidService: KidService,
   ) { }
 
 
@@ -72,6 +70,10 @@ export class ParentOrdersController {
 
 
   @Get('/traking')
+  @ApiQuery({ name: 'page', description: 'pagenumber', required: false, example: 1 })
+  @ApiQuery({ name: 'limit', description: 'records per page', required: false, example: 10 })
+  @ApiQuery({ name: 'searchQuery', description: 'SearchQuery', required: false })
+  @Validate()
   async getOrderTraking(
     @CurrentUser() user: IUser,
     @Query() query: BasicQueryDto,
@@ -81,6 +83,10 @@ export class ParentOrdersController {
   }
 
   @Get('/complete-order-list')
+  @ApiQuery({ name: 'page', description: 'pagenumber', required: false, example: 1 })
+  @ApiQuery({ name: 'limit', description: 'records per page', required: false, example: 10 })
+  @ApiQuery({ name: 'searchQuery', description: 'SearchQuery', required: false })
+  @Validate()
   async getCompleteOrderList(
     @Query() query: BasicQueryDto,
     @I18n() i18: I18nContext,

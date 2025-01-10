@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
 import { MealSelectionService } from './meal-selection.service';
-import { MealSelectionController } from './meal-selection.controller';
 import { KidModule } from '../kids/kid.module';
 import { FoodchartModule } from '../foodchart/foodchart.module';
 import { DishModule } from 'src/api/v1/vendor/dish/dish.module';
@@ -21,7 +20,6 @@ import { Cart, CartSchema } from './models/cart.schemas';
       { name: Cart.name, schema: CartSchema }
     ])
   ],
-  controllers: [MealSelectionController],
   providers: [MealSelectionService, CartRepository],
   exports: [MealSelectionService, CartRepository]
 })

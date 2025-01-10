@@ -9,14 +9,11 @@ import {
   IsNumber,
   ArrayMinSize,
   ArrayMaxSize,
-  IsDefined,
   IsOptional,
   IsString,
   Matches,
   ValidateNested,
-  ValidatorConstraint,
-  ValidationArguments,
-  ValidatorConstraintInterface,
+
   IsPhoneNumber,
 } from 'class-validator';
 import { DaysOfWeek } from 'src/api/v1/users/models/user.schema';
@@ -246,4 +243,7 @@ export class UpdateVendorDto {
 }
 
 
-
+export class FileUploadDto {
+  @ApiProperty({ type: 'string', format: 'binary', required: true })
+  file: Express.Multer.File;
+}

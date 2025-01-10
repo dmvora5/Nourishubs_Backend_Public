@@ -186,3 +186,18 @@ export class FooCharIdstDto {
   schoolAdminId: string;
   areaExecutiveId?: string;
 }
+
+
+export class ApproveFoodChartDto {
+  @ApiProperty({
+    description: 'groupId (uuid)',
+    example: 'fff313a6-d3b8-4af3-8927-223cce786d3d',
+  })
+  groupId: string;
+
+  @ApiProperty({
+    description: 'status',
+    enum: ['Approved', 'Pending', 'Reject'],
+  })
+  status: string;
+}

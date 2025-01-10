@@ -182,7 +182,12 @@ export const ALL_PERMISSION = {
             {
                 _id: PERMISSIONS.FOOCHARTMANAGEMENT.subPermissions.APPROVEFOODCHART,
                 name: 'Approve Food Chart',
+            },
+            {
+                _id: PERMISSIONS.FOOCHARTMANAGEMENT.subPermissions.GETFOODCHARTREQUESTS,
+                name: 'Get Food Charts Requests',
             }
+            
         ]
     },
     MEALSELECTION: {
@@ -530,7 +535,7 @@ export const INSERT_RBAC_DATA = {
             {
                 permission: PERMISSIONS.FOOCHARTMANAGEMENT.permission,
                 subPermissions: [
-                    ...Object.values(PERMISSIONS.FOOCHARTMANAGEMENT.subPermissions)
+                    PERMISSIONS.FOOCHARTMANAGEMENT.subPermissions.CREATEFOODCHART
                 ]
             }
         ]

@@ -54,7 +54,6 @@ export class VerificationRequestsService {
     async generateThresholdrequest(
         userId: string,
         payload: ThressHoldRequestDto,
-        requestUserType: string,
         i18n?: I18nContext
     ) {
         await this.verificationRequestRepository.findOneAndUpdate(
@@ -62,14 +61,14 @@ export class VerificationRequestsService {
                 userId: userId,
                 requestStatus: REQUEST_STATUS.OPEN,
                 type: VERIFICATION_TYPE.THRESHOLD,
-                userType: requestUserType
+                userType: REQUEST_USER_TYPE.VENDOR
             },
             {
                 minThresHold: payload.minThresHold,
                 userId: userId,
                 type: VERIFICATION_TYPE.THRESHOLD,
                 requestStatus: REQUEST_STATUS.OPEN,
-                userType: requestUserType
+                userType: REQUEST_USER_TYPE.VENDOR
             },
         );
 

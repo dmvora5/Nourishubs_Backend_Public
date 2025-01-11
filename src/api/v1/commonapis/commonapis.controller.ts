@@ -53,7 +53,6 @@ export class CommonapisController {
     }
 
 
-
     return this.userService.getAllUsersWithFilters({
       query,
       user,
@@ -64,7 +63,8 @@ export class CommonapisController {
         status: 'active',
         verificationStatus: 'approved',
       },
-      select: 'schoolName _id'
+      select: 'schoolName _id',
+      includeRole: false
     });
   }
 

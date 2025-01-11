@@ -38,6 +38,7 @@ import { DistricExecutiveFoodchartModule } from './api/v1/district-executive/dis
 import { NewslettersModule } from './api/v1/newsletters/newsletters.module';
 import { CommonapisModule } from './api/v1/commonapis/commonapis.module';
 import { VendorDashbordModule } from './api/v1/vendor/vendor-dashbord/vendor-dashbord.module';
+import { SeederModule } from './seeder/seeder.module';
 @Module({
   imports: [
     CommonModule,

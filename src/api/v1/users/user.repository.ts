@@ -1,7 +1,7 @@
 import { AbstractRepository } from "@app/common";
 import { Injectable, Logger } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
-import {  OtherUsers, Parent, School, SchoolMembers, User, Vendor } from "./models/user.schema";
+import { OtherUsers, Parent, School, SchoolMembers, User, Vendor } from "./models/user.schema";
 import { Model } from "mongoose";
 
 
@@ -34,31 +34,38 @@ export class UserRepository extends AbstractRepository<User> {
     }
     async getAllUserWithRoles({
         filter = {},         // Default to an empty object
-        skip = 0,            // Default to 0 (no skipping)
-        limit = 0,           // Default to 0 (no limit, fetch all)
+        skip,            // Default to 0 (no skipping)
+        limit,           // Default to 0 (no limit, fetch all)
         orderBy = {},      // Default to an empty object (no specific order)
-        select = '-permissions'
-      }: {
+        select = '-permissions',
+        includeRole = true
+    }: {
         filter?: any;
         skip?: number;
         limit?: number;
         orderBy?: Record<string, any>;
         select?: string;
-      }): Promise<any>
-      {
-        console.log(filter);
-       return this.userModel
-        .find(filter, `${select || ''}`)
-        .populate({
-          path: 'role',
-          select: 'name',
-          transform: (doc) => (doc ? doc.name : null),
-        })
-        .skip(skip)
-        .limit(limit)
-        .sort(orderBy)
-        .lean(true)
-        .exec();
+        includeRole?: boolean;
+    }): Promise<any> {
+        const query = this.userModel
+            .find(filter, `${select || ''}`)
+        if (includeRole) {
+            query.populate({
+                path: 'role',
+                select: 'name',
+                transform: (doc) => (doc ? doc.name : null),
+            })
+        }
+        if (isFinite(skip)) {
+            query
+                .skip(skip)
+                .limit(limit)
+        }
+        return query
+            .sort(orderBy)
+            .lean(true)
+            .exec();
+
     }
 
 }

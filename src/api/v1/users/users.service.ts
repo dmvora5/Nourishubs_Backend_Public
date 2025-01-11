@@ -20,8 +20,9 @@ interface GetUsersInputs {
     user: IUser,
     roles: string[],
     location?: string,
-    baseFilter?: Object,
-    select?: string
+    baseFilter?: object,
+    select?: string,
+    includeRole?: boolean
 }
 
 @Injectable()
@@ -363,8 +364,9 @@ export class UsersService {
         location,
         baseFilter = { status: 'active' },
         select,
+        includeRole = true
     }: GetUsersInputs) {
-        const { page = 1, limit = 10, searchQuery, orderBy = { createdAt: -1 } } = query;
+        const { page, limit, searchQuery, orderBy = { createdAt: -1 } } = query;
 
         const skip = (page - 1) * limit;
 
@@ -430,33 +432,38 @@ export class UsersService {
             ...locationSearch
         }
 
-        const [users, total, totalFiltered] = await Promise.all([
-            this.userRepository.getAllUserWithRoles({ filter, skip, limit, orderBy, select }),
-            this.userRepository.countDocuments({ status: 'active' }), // Count all non-deleted users
-            this.userRepository.countDocuments(filter),
-        ]);
+        if (isFinite(skip)) {
+            const [users, total, totalFiltered] = await Promise.all([
+                this.userRepository.getAllUserWithRoles({ filter, skip, limit, orderBy, select, includeRole }),
+                this.userRepository.countDocuments({ status: 'active' }), // Count all non-deleted users
+                this.userRepository.countDocuments(filter),
+            ]);
 
-        const { totalPage, startIndex, endIndex, currentPageFilteredCount } = getPaginationDetails({
-            data: users,
-            count: totalFiltered,
-            limit,
-            skip,
-        })
+            const { totalPage, startIndex, endIndex, currentPageFilteredCount } = getPaginationDetails({
+                data: users,
+                count: totalFiltered,
+                limit,
+                skip,
+            })
 
-        const meta = {
-            totalFiltered,
-            total,
-            currentPage: page,
-            perPage: limit,
-            totalPage,
-            startIndex,
-            endIndex,
-            currentPageFilteredCount,
-            searchQuery,
-            orderBy
+            const meta = {
+                totalFiltered,
+                total,
+                currentPage: page,
+                perPage: limit,
+                totalPage,
+                startIndex,
+                endIndex,
+                currentPageFilteredCount,
+                searchQuery,
+                orderBy
+            }
+
+            return this.responseService.success(await i18n.translate('messages.usersRetrieved'), { users }, meta);
         }
 
-        return this.responseService.success(await i18n.translate('messages.usersRetrieved'), { users }, meta);
+        const users = await this.userRepository.getAllUserWithRoles({ filter, orderBy, select, includeRole });
+        return this.responseService.success(await i18n.translate('messages.usersRetrieved'), { users }, {});
 
 
     }

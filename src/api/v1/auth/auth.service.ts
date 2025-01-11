@@ -43,7 +43,8 @@ export class AuthService {
       throw new UnprocessableEntityException(i18n.translate('messages.emailExists'));
     }
 
-    if(!emailExist?.isEmailVerified) {
+
+    if(emailExist && !emailExist?.isEmailVerified) {
       const { otp, expiresAt } = await this.sendOtp({ email: userData.email, templateFn: TAMPLATES.SIGNUPTEMPLATE });
       return this.responseService.success(await i18n.translate('messages.userCreated'), {
         ...emailExist,
@@ -63,7 +64,6 @@ export class AuthService {
     const insertData: any = {
       ...userData,
       role: role._id,
-      isApproved: false,
       password: hashedPassword,
       permissions: role.permissions,
       location: {
@@ -81,12 +81,15 @@ export class AuthService {
 
     let newUser;
 
+    console.log('payload.type', payload.type)
+
     switch (payload.type) {
       case ROLES.VENDOR:
         newUser = await this.vendorRepository.create(insertData);
         break;
       case ROLES.SCHOOL:
         newUser = await this.schoolRepository.create(insertData);
+        console.log('newUser', newUser)
         break;
       case ROLES.PARENT:
         newUser = await this.parentRepository.create(insertData);

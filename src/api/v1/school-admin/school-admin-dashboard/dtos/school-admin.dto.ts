@@ -111,6 +111,14 @@ export class UpdateSchoolDto {
     @IsString({ message: 'validation.address.isString' })
     @IsNotEmpty({ message: 'validation.address.notEmpty' })
     address: string;
+
+    @ApiPropertyOptional({
+        description: 'Delivery time',
+        example: '12:00AM',
+    })
+    @IsString({ message: 'validation.address.isString' })
+    @IsOptional()
+    expectedDeliveryTime: string;
 }
 
 

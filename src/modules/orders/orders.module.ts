@@ -7,12 +7,14 @@ import { OrdersRepository } from './order.repository';
 import { KidModule } from '../kids/kid.module';
 import { UsersModule } from 'src/api/v1/users/users.module';
 import { UsernotificationModule } from 'src/api/v1/usernotification/usernotification.module';
+import { DishModule } from 'src/api/v1/vendor/dish/dish.module';
 @Module({
   imports:[
     MealSelectionModule,
     KidModule,
     UsernotificationModule,
     UsersModule,
+    DishModule,
     MongooseModule.forFeature([
       {name: Orders.name, schema: OrderSchema}
     ])

@@ -31,8 +31,8 @@ import { CreateOrderFromAuthority } from 'src/modules/orders/dtos/create-order-f
 import { CloseRequestDto } from 'src/modules/verification-requests/dtos/requests.dto';
 
 @ApiBearerAuth()
-@ApiTags('Super-Admin / Order-Management')
-@Controller('super-admin-order-management')
+@ApiTags('Admin / Order-Management')
+@Controller('admin-order-management')
 @UseGuards(JwtAuthGuard)
 export class OrdersController {
   constructor(
@@ -56,7 +56,7 @@ export class OrdersController {
     return this.orderService.getAllCancelOrders(
       query,
       i18n,
-      LOCATION.ALL,
+      LOCATION.COUNTRY,
       user,
     );
   }
@@ -111,7 +111,7 @@ export class OrdersController {
     @CurrentUser() user: IUser,
     @I18n() i18n: I18nContext,
   ) {
-    return await this.vendorManagementService.allApprovedVendors(user, LOCATION.ALL, i18n);
+    return await this.vendorManagementService.allApprovedVendors(user, LOCATION.COUNTRY, i18n);
   }
 
   @Get('get-all-categories')
@@ -172,7 +172,7 @@ export class OrdersController {
     return this.verificationRequestsService.getAllPendingThresHoldVerifications(
       query,
       user,
-      LOCATION.ALL,
+      LOCATION.COUNTRY,
       i18n,
     );
   }

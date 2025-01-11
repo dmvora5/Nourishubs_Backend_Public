@@ -39,6 +39,10 @@ import { NewslettersModule } from './api/v1/newsletters/newsletters.module';
 import { CommonapisModule } from './api/v1/commonapis/commonapis.module';
 import { VendorDashbordModule } from './api/v1/vendor/vendor-dashbord/vendor-dashbord.module';
 import { SeederModule } from './seeder/seeder.module';
+import { AdminOrderManagement } from './api/v1/admin/order-management/orders.module';
+import { StateExecutiveOrderManagement } from './api/v1/state-executive/order-management/orders.module';
+import { DistrictExecutiveOrderManagement } from './api/v1/district-executive/order-management/orders.module';
+import { AreaExecutiveOrderManagement } from './api/v1/area-executives/order-management/orders.module';
 @Module({
   imports: [
     CommonModule,
@@ -80,7 +84,10 @@ import { SeederModule } from './seeder/seeder.module';
     NewslettersModule,
     CommonapisModule,
     VendorDashbordModule,
-    
+    AdminOrderManagement,
+    StateExecutiveOrderManagement,
+    DistrictExecutiveOrderManagement,
+    AreaExecutiveOrderManagement
     // SeederModule
   ]
 })

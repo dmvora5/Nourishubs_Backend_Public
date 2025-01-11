@@ -1,4 +1,4 @@
-import { Injectable,NotFoundException, BadRequestException } from '@nestjs/common';
+import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
 import { OrdersRepository } from './order.repository';
 import { BasicQueryDto, getPaginationDetails, ROLES, LOCATION } from '@app/common';
 import { I18nContext } from 'nestjs-i18n';
@@ -8,6 +8,8 @@ import { UserRepository } from 'src/api/v1/users/user.repository';
 import { CommonModule } from '../common/common.module';
 import { CancleOrderDto } from './dtos/cancle-order.dtos';
 import { UserNotificationRepository } from 'src/api/v1/usernotification/usernotification.repository';
+import { CreateOrderFromAuthority } from './dtos/create-order-from-authority-dtos';
+import { DishRepository } from 'src/api/v1/vendor/dish/dish.repository';
 @Injectable()
 export class OrdersService {
 
@@ -15,6 +17,7 @@ export class OrdersService {
     private readonly orderRepository: OrdersRepository,
     private readonly cartRepository: CartRepository,
     private readonly userRepository: UserRepository,
+    private readonly dishRepository: DishRepository,
     private readonly responseService: CommonResponseService,
     private readonly userNotificationRepository: UserNotificationRepository,
 
@@ -230,7 +233,7 @@ export class OrdersService {
         { path: 'schoolId', select: 'schoolName address' }, // Populate school details
       ] // Pass the populate options
     );
-    
+
     const totalFiltered = await this.orderRepository.countDocuments(filter);
     const total = await this.orderRepository.countDocuments(filter);
     const { totalPage, startIndex, endIndex, currentPageFilteredCount } =
@@ -304,16 +307,100 @@ export class OrdersService {
 
     await request.save();
 
- 
+
 
     await this.userNotificationRepository.create({
       userId: request.vendorId,
       title: payload.isCancelRequestApproved ? 'your order cancel request approved' : 'your order cancel request rejected',
       ...payload,
-  });
+    });
     return this.responseService.success(
       await i18n.translate('messages.requestClose'),
       null,
     );
+  }
+  async createOrderFromAuthority(createCartDto: CreateOrderFromAuthority, i18n: I18nContext) {
+    const order = await this.orderRepository.findById(createCartDto.orderId.toString());
+    if (!order) {
+      throw new Error(`Order with ID ${createCartDto.orderId} not found`);
+    }
+
+    let updatedCartItems = [];
+    let totalAmount = 0;
+    let baseAmount = 0;
+
+    // await this.kidDashboardService.findAndVerifyKid(parentId?.toString(), kidId?.toString())
+    for (const item of createCartDto.cartItems) {
+      // Fetch the dish from the database
+      const dish = (
+        await this.dishRepository.findById(item.dishId?.toString())
+      )?.toObject();
+      if (!dish) {
+        throw new Error(`Dish with ID ${item.dishId} not found`);
+      }
+
+      // Calculate the total price for the dish
+      let totalPrice = dish.pricing * item.quantity;
+      baseAmount = dish.pricing;
+      // Process modifiers if they exist
+      let updatedModifiers = [];
+      if (item.modifiers && item.modifiers.length > 0) {
+        for (const modifier of item.modifiers) {
+          // Fetch the modifier's associated dish
+          const modifierDish = (
+            await this.dishRepository.findById(modifier.dishId?.toString())
+          )?.toObject();
+          if (!modifierDish) {
+            throw new Error(
+              `Modifier dish with ID ${modifier.dishId} not found`,
+            );
+          }
+
+          // Calculate modifier price
+          const modifierPrice = modifierDish.pricing * item.quantity;
+          totalPrice += modifierPrice;
+          baseAmount += modifierDish.pricing;
+          // Update modifier with calculated price and ensure quantity is set
+          const updatedModifier = {
+            modifierId: modifier.modifierId,
+            dishId: modifier.dishId,
+            price: modifierDish.pricing,
+            quantity: item.quantity, // Use the same quantity as the item
+          };
+
+          updatedModifiers.push(updatedModifier);
+        }
+      }
+      console.log(updatedModifiers);
+
+      // Update cart item with calculated price and updated modifiers
+      updatedCartItems.push({
+        ...item,
+        price: dish.pricing,
+        modifiers: updatedModifiers,
+      });
+
+      baseAmount = baseAmount;
+      totalAmount = totalPrice;
+    }
+
+    // Create the new order
+    const cart = this.orderRepository.create({
+      userId:order?.userId,
+      kidId: order?.kidId,
+      vendorId:createCartDto.vendorId,
+      orderDate:order?.orderDate,
+      schoolId: order?.schoolId,
+      cartItems: updatedCartItems,
+      deliveryAddress:order?.deliveryAddress,
+      baseAmount,
+      totalAmount, // Assign calculated total amount
+    });
+
+    return this.responseService.success(i18n.translate('messages.cartUpdate'), {
+      cart,
+    });
+
+
   }
 }

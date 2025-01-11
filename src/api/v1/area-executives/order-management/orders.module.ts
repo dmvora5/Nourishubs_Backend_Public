@@ -20,4 +20,4 @@ import { VerificationRequestsModule } from 'src/modules/verification-requests/ve
   exports: [OrdersService]
 
 })
-export class SuperAdminOrderManagement { }
+export class AreaExecutiveOrderManagement { }

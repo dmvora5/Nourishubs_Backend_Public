@@ -122,63 +122,63 @@ export const ALL_PERMISSION = {
 
         ]
     },
-    STAFFMANAGEMENT: {
-        _id: PERMISSIONS.STAFFMANAGEMENT.permission,
-        name: 'Staff Management',
-        subPermissions: [
-            {
-                _id: PERMISSIONS.STAFFMANAGEMENT.subPermissions.CREATESTAFF,
-                name: 'Create Staff Member',
-            },
-            {
-                _id: PERMISSIONS.STAFFMANAGEMENT.subPermissions.GETALLSTAFF,
-                name: 'Staff List',
-            },
-            {
-                _id: PERMISSIONS.STAFFMANAGEMENT.subPermissions.UPDATESTAFF,
-                name: 'Update Staff Member',
-            },
-            {
-                _id: PERMISSIONS.STAFFMANAGEMENT.subPermissions.DELETESTAFF,
-                name: 'Delete Staff Member',
-            },
-            {
-                _id: PERMISSIONS.STAFFMANAGEMENT.subPermissions.GETSTAFFDETAILS,
-                name: 'View Staff Member Detail',
-            },
+    // STAFFMANAGEMENT: {
+    //     _id: PERMISSIONS.STAFFMANAGEMENT.permission,
+    //     name: 'Staff Management',
+    //     subPermissions: [
+    //         {
+    //             _id: PERMISSIONS.STAFFMANAGEMENT.subPermissions.CREATESTAFF,
+    //             name: 'Create Staff Member',
+    //         },
+    //         {
+    //             _id: PERMISSIONS.STAFFMANAGEMENT.subPermissions.GETALLSTAFF,
+    //             name: 'Staff List',
+    //         },
+    //         {
+    //             _id: PERMISSIONS.STAFFMANAGEMENT.subPermissions.UPDATESTAFF,
+    //             name: 'Update Staff Member',
+    //         },
+    //         {
+    //             _id: PERMISSIONS.STAFFMANAGEMENT.subPermissions.DELETESTAFF,
+    //             name: 'Delete Staff Member',
+    //         },
+    //         {
+    //             _id: PERMISSIONS.STAFFMANAGEMENT.subPermissions.GETSTAFFDETAILS,
+    //             name: 'View Staff Member Detail',
+    //         },
 
-        ]
-    },
-    PARENTMANAGEMENT: {
-        _id: PERMISSIONS.PARENTMANAGEMENT.permission,
-        name: 'Parent Management',
-        subPermissions: [
-            {
-                _id: PERMISSIONS.PARENTMANAGEMENT.subPermissions.APPROVEPARENT,
-                name: 'Approve parent',
-            },
+    //     ]
+    // },
+    // PARENTMANAGEMENT: {
+    //     _id: PERMISSIONS.PARENTMANAGEMENT.permission,
+    //     name: 'Parent Management',
+    //     subPermissions: [
+    //         {
+    //             _id: PERMISSIONS.PARENTMANAGEMENT.subPermissions.APPROVEPARENT,
+    //             name: 'Approve parent',
+    //         },
 
-        ]
-    },
-    SCHOOLADMINDASHBOARD: {
-        _id: PERMISSIONS.SCHOOLADMINDASHBOARD.permission,
-        name: 'School Admin Dashboard',
-        subPermissions: [
-            {
-                _id: PERMISSIONS.SCHOOLADMINDASHBOARD.subPermissions.PARENTREGISTRATIONREQUESTLIST,
-                name: 'Get Parent Ragistration list',
-            },
-            {
-                _id: PERMISSIONS.SCHOOLADMINDASHBOARD.subPermissions.HANDLEREGISTRATIONREQUEST,
-                name: 'Handle Registration request',
-            },
-            {
-                _id: PERMISSIONS.SCHOOLADMINDASHBOARD.subPermissions.UPDATEPSCHOOLADMINROFILE,
-                name: 'Update School Admin Profile',
-            },
+    //     ]
+    // },
+    // SCHOOLADMINDASHBOARD: {
+    //     _id: PERMISSIONS.SCHOOLADMINDASHBOARD.permission,
+    //     name: 'School Admin Dashboard',
+    //     subPermissions: [
+    //         {
+    //             _id: PERMISSIONS.SCHOOLADMINDASHBOARD.subPermissions.PARENTREGISTRATIONREQUESTLIST,
+    //             name: 'Get Parent Ragistration list',
+    //         },
+    //         {
+    //             _id: PERMISSIONS.SCHOOLADMINDASHBOARD.subPermissions.HANDLEREGISTRATIONREQUEST,
+    //             name: 'Handle Registration request',
+    //         },
+    //         {
+    //             _id: PERMISSIONS.SCHOOLADMINDASHBOARD.subPermissions.UPDATEPSCHOOLADMINROFILE,
+    //             name: 'Update School Admin Profile',
+    //         },
 
-        ]
-    },
+    //     ]
+    // },
     FOOCHARTMANAGEMENT: {
         _id: PERMISSIONS.FOOCHARTMANAGEMENT.permission,
         name: 'FoodChart Management',
@@ -198,32 +198,32 @@ export const ALL_PERMISSION = {
 
         ]
     },
-    MEALSELECTION: {
-        _id: PERMISSIONS.MEALSELECTION.permission,
-        name: 'Meal Selection',
-        subPermissions: [
-            {
-                _id: PERMISSIONS.MEALSELECTION.subPermissions.ORDERMEAL,
-                name: 'Order Meal',
-            },
+    // MEALSELECTION: {
+    //     _id: PERMISSIONS.MEALSELECTION.permission,
+    //     name: 'Meal Selection',
+    //     subPermissions: [
+    //         {
+    //             _id: PERMISSIONS.MEALSELECTION.subPermissions.ORDERMEAL,
+    //             name: 'Order Meal',
+    //         },
 
-        ]
-    },
-    PARENTSPROFILE: {
-        _id: PERMISSIONS.PARENTSPROFILE.permission,
-        name: 'Parent Profile',
-        subPermissions: [
-            {
-                _id: PERMISSIONS.PARENTSPROFILE.subPermissions.GETDETAILS,
-                name: 'Profile Details',
-            },
-            {
-                _id: PERMISSIONS.PARENTSPROFILE.subPermissions.UPDATEPROFILE,
-                name: 'Update Parent Profile',
-            },
+    //     ]
+    // },
+    // PARENTSPROFILE: {
+    //     _id: PERMISSIONS.PARENTSPROFILE.permission,
+    //     name: 'Parent Profile',
+    //     subPermissions: [
+    //         {
+    //             _id: PERMISSIONS.PARENTSPROFILE.subPermissions.GETDETAILS,
+    //             name: 'Profile Details',
+    //         },
+    //         {
+    //             _id: PERMISSIONS.PARENTSPROFILE.subPermissions.UPDATEPROFILE,
+    //             name: 'Update Parent Profile',
+    //         },
 
-        ]
-    },
+    //     ]
+    // },
     KIDSMANAGEMENT: {
         _id: PERMISSIONS.KIDSMANAGEMENT.permission,
         name: 'Kids Management',
@@ -330,6 +330,33 @@ export const ALL_PERMISSION = {
                 name: 'Get Vendors FoodCatogories',
             },
         ]
+    },
+    ORDERMANAGEMENT: {
+        _id: PERMISSIONS.ORDERMANAGEMENT.permission,
+        name: 'Order Management',
+        subPermissions: [
+            {
+                _id: PERMISSIONS.ORDERMANAGEMENT.subPermissions.GETLASTMOVEMENTCANCELLCENLIST,
+                name: 'Get Last Movement Cancellation list',
+            },
+            {
+                _id: PERMISSIONS.ORDERMANAGEMENT.subPermissions.APPROVELASTMOVEMENTCANCELLATION,
+                name: 'Approve Last Movement Cancellation',
+            },
+            {
+                _id: PERMISSIONS.ORDERMANAGEMENT.subPermissions.ORDERTRACKING,
+                name: 'Order Tracking',
+            },
+            {
+                _id: PERMISSIONS.ORDERMANAGEMENT.subPermissions.DETAILSOFCANCELOREDR,
+                name: 'Cancel order details',
+            },
+            {
+                _id: PERMISSIONS.ORDERMANAGEMENT.subPermissions.CHANGEORDER,
+                name: 'change order',
+            }
+            
+        ]
     }
 }
 
@@ -354,6 +381,12 @@ export const INSERT_RBAC_DATA = {
                 permission: PERMISSIONS.USERMANAGEMENT.permission,
                 subPermissions: [
                     ...Object.values(PERMISSIONS.USERMANAGEMENT.subPermissions)
+                ]
+            },
+            {
+                permission: PERMISSIONS.ORDERMANAGEMENT.permission,
+                subPermissions: [
+                    ...Object.values(PERMISSIONS.ORDERMANAGEMENT.subPermissions)
                 ]
             },
             // {
@@ -397,6 +430,12 @@ export const INSERT_RBAC_DATA = {
             //     ]
             // },
             {
+                permission: PERMISSIONS.ORDERMANAGEMENT.permission,
+                subPermissions: [
+                    ...Object.values(PERMISSIONS.ORDERMANAGEMENT.subPermissions)
+                ]
+            },
+            {
                 permission: PERMISSIONS.ROLEMANAGEMENT.permission,
                 subPermissions: [
                     ...Object.values(PERMISSIONS.ROLEMANAGEMENT.subPermissions)
@@ -429,6 +468,12 @@ export const INSERT_RBAC_DATA = {
             //         ...Object.values(PERMISSIONS.VENDORMANAGEMENT.subPermissions)
             //     ]
             // },
+            {
+                permission: PERMISSIONS.ORDERMANAGEMENT.permission,
+                subPermissions: [
+                    ...Object.values(PERMISSIONS.ORDERMANAGEMENT.subPermissions)
+                ]
+            },
             {
                 permission: PERMISSIONS.ROLEMANAGEMENT.permission,
                 subPermissions: [
@@ -468,6 +513,12 @@ export const INSERT_RBAC_DATA = {
             //     ]
             // },
             {
+                permission: PERMISSIONS.ORDERMANAGEMENT.permission,
+                subPermissions: [
+                    ...Object.values(PERMISSIONS.ORDERMANAGEMENT.subPermissions)
+                ]
+            },
+            {
                 permission: PERMISSIONS.ROLEMANAGEMENT.permission,
                 subPermissions: [
                     ...Object.values(PERMISSIONS.ROLEMANAGEMENT.subPermissions)
@@ -499,6 +550,12 @@ export const INSERT_RBAC_DATA = {
                 ]
             },
             {
+                permission: PERMISSIONS.ORDERMANAGEMENT.permission,
+                subPermissions: [
+                    ...Object.values(PERMISSIONS.ORDERMANAGEMENT.subPermissions)
+                ]
+            },
+            {
                 permission: PERMISSIONS.FOOCHARTMANAGEMENT.permission,
                 subPermissions: [
                     ...Object.values(PERMISSIONS.FOOCHARTMANAGEMENT.subPermissions)
@@ -517,29 +574,35 @@ export const INSERT_RBAC_DATA = {
         ],
         permissions: [
             {
-                permission: PERMISSIONS.STAFFMANAGEMENT.permission,
+                permission: PERMISSIONS.USERMANAGEMENT.permission,
                 subPermissions: [
-                    ...Object.values(PERMISSIONS.STAFFMANAGEMENT.subPermissions)
+                    ...Object.values(PERMISSIONS.USERMANAGEMENT.subPermissions)
                 ]
             },
             {
-                permission: PERMISSIONS.PARENTMANAGEMENT.permission,
+                permission: PERMISSIONS.ORDERMANAGEMENT.permission,
                 subPermissions: [
-                    ...Object.values(PERMISSIONS.PARENTMANAGEMENT.subPermissions)
+                    PERMISSIONS.ORDERMANAGEMENT.subPermissions.ORDERTRACKING
                 ]
             },
+            // {
+            //     permission: PERMISSIONS.PARENTMANAGEMENT.permission,
+            //     subPermissions: [
+            //         ...Object.values(PERMISSIONS.PARENTMANAGEMENT.subPermissions)
+            //     ]
+            // },
             {
                 permission: PERMISSIONS.ROLEMANAGEMENT.permission,
                 subPermissions: [
                     ...Object.values(PERMISSIONS.ROLEMANAGEMENT.subPermissions)
                 ]
             },
-            {
-                permission: PERMISSIONS.SCHOOLADMINDASHBOARD.permission,
-                subPermissions: [
-                    ...Object.values(PERMISSIONS.SCHOOLADMINDASHBOARD.subPermissions)
-                ]
-            },
+            // {
+            //     permission: PERMISSIONS.SCHOOLADMINDASHBOARD.permission,
+            //     subPermissions: [
+            //         ...Object.values(PERMISSIONS.SCHOOLADMINDASHBOARD.subPermissions)
+            //     ]
+            // },
             {
                 permission: PERMISSIONS.FOOCHARTMANAGEMENT.permission,
                 subPermissions: [
@@ -553,12 +616,19 @@ export const INSERT_RBAC_DATA = {
         name: "Teacher",
         childRoles: [],
         permissions: [
+            // {
+            //     permission: PERMISSIONS.MEALSELECTION.permission,
+            //     subPermissions: [
+            //         ...Object.values(PERMISSIONS.MEALSELECTION.subPermissions)
+            //     ]
+            // },
             {
-                permission: PERMISSIONS.MEALSELECTION.permission,
+                permission: PERMISSIONS.ORDERMANAGEMENT.permission,
                 subPermissions: [
-                    ...Object.values(PERMISSIONS.MEALSELECTION.subPermissions)
+                    PERMISSIONS.ORDERMANAGEMENT.subPermissions.ORDERTRACKING
                 ]
-            }
+            },
+            
         ]
     },
     [ROLES.SCHOOLOTHERS]: {
@@ -566,12 +636,12 @@ export const INSERT_RBAC_DATA = {
         name: "School Others",
         childRoles: [],
         permissions: [
-            {
-                permission: PERMISSIONS.MEALSELECTION.permission,
-                subPermissions: [
-                    ...Object.values(PERMISSIONS.MEALSELECTION.subPermissions)
-                ]
-            }
+            // {
+            //     permission: PERMISSIONS.MEALSELECTION.permission,
+            //     subPermissions: [
+            //         ...Object.values(PERMISSIONS.MEALSELECTION.subPermissions)
+            //     ]
+            // }
         ]
     },
     [ROLES.PARENT]: {
@@ -579,18 +649,24 @@ export const INSERT_RBAC_DATA = {
         name: "Parent",
         childRoles: [],
         permissions: [
-            {
-                permission: PERMISSIONS.PARENTSPROFILE.permission,
-                subPermissions: [
-                    ...Object.values(PERMISSIONS.PARENTSPROFILE.subPermissions)
-                ]
-            },
+            // {
+            //     permission: PERMISSIONS.PARENTSPROFILE.permission,
+            //     subPermissions: [
+            //         ...Object.values(PERMISSIONS.PARENTSPROFILE.subPermissions)
+            //     ]
+            // },
             {
                 permission: PERMISSIONS.KIDSMANAGEMENT.permission,
                 subPermissions: [
                     ...Object.values(PERMISSIONS.KIDSMANAGEMENT.subPermissions)
                 ]
-            }
+            },
+            {
+                permission: PERMISSIONS.ORDERMANAGEMENT.permission,
+                subPermissions: [
+                    PERMISSIONS.ORDERMANAGEMENT.subPermissions.ORDERTRACKING
+                ]
+            },
         ]
     },
     [ROLES.VENDOR]: {

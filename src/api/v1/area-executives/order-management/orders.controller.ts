@@ -33,6 +33,10 @@ import { CloseRequestDto } from 'src/modules/verification-requests/dtos/requests
 @ApiBearerAuth()
 @ApiTags('Area-Executive / Order-Management')
 @Controller('area-executive-order-management')
+@PermissionGuard({
+  permissions: [PERMISSIONS.USERMANAGEMENT.permission, PERMISSIONS.ORDERMANAGEMENT.permission],
+  roles: [ROLES.AREA_EXECUTIVE]
+})
 @UseGuards(JwtAuthGuard)
 export class OrdersController {
   constructor(
@@ -43,6 +47,9 @@ export class OrdersController {
   ) { }
 
 
+  @SubPermissionGuard({
+    permissions:[ PERMISSIONS.ORDERMANAGEMENT.subPermissions.GETLASTMOVEMENTCANCELLCENLIST]
+  })
   @Get('all-cancle-orders')
   @ApiQuery({ name: 'page', description: 'pagenumber', required: false, example: 1 })
   @ApiQuery({ name: 'limit', description: 'records per page', required: false, example: 10 })
@@ -61,6 +68,9 @@ export class OrdersController {
     );
   }
 
+  @SubPermissionGuard({
+    permissions:[ PERMISSIONS.ORDERMANAGEMENT.subPermissions.DETAILSOFCANCELOREDR]
+  })
   @Get('get-order/:id')
   @ApiOperation({ summary: 'Get order details by ID' })
   @ApiParam({ name: 'id', type: String, description: 'Order ID' })
@@ -75,6 +85,9 @@ export class OrdersController {
     return this.orderService.getOrderById(id, i18n);
   }
 
+  @SubPermissionGuard({
+    permissions:[ PERMISSIONS.ORDERMANAGEMENT.subPermissions.APPROVELASTMOVEMENTCANCELLATION]
+  })
   @Patch('cancle-order-request/:id')
   @ApiOperation({
     summary: 'Accept or reject a last-minute cancel order request',
@@ -140,6 +153,9 @@ export class OrdersController {
     return await this.mealSelectionService.getVendorCategories(vendorId, i18n);
   }
 
+  @SubPermissionGuard({
+    permissions:[ PERMISSIONS.ORDERMANAGEMENT.subPermissions.CHANGEORDER]
+  })
   @Post('/place-order')
   @ApiQuery({
     name: 'targetedUserId',

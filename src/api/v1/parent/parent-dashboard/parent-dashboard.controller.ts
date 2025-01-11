@@ -1,6 +1,6 @@
-import { Body, Controller, Get, Patch, UploadedFile, UseInterceptors } from "@nestjs/common";
+import { Body, Controller, Get, Patch, UploadedFile, UseGuards, UseInterceptors } from "@nestjs/common";
 import { ParentDashboardService } from "./parent-dashboard.service";
-import { CurrentUser, IUser, PermissionGuard, PERMISSIONS, ROLES, SubPermissionGuard, Validate } from "@app/common";
+import { CurrentUser, IUser, JwtAuthGuard, PermissionGuard, PERMISSIONS, ROLES, SubPermissionGuard, Validate } from "@app/common";
 import { FileInterceptor } from "@nestjs/platform-express";
 import { ApiBearerAuth, ApiConsumes, ApiTags } from "@nestjs/swagger";
 import { I18n, I18nContext } from "nestjs-i18n";
@@ -9,18 +9,11 @@ import { UpdateParentDto } from "./dtos/parent-dashboard.dtos";
 @ApiBearerAuth()
 @ApiTags("Parent / Dashboard")
 @Controller('parent-dashboard')
-@PermissionGuard({
-  permissions: [PERMISSIONS.PARENTSPROFILE.permission],
-  roles: [ROLES.PARENT]
-})
+@UseGuards(JwtAuthGuard)
 export class ParentDashboardController {
 
   constructor(private readonly parentDashboardService: ParentDashboardService) { }
 
-  @SubPermissionGuard({
-    permissions: [PERMISSIONS.PARENTSPROFILE.subPermissions.UPDATEPROFILE],
-    passthrough: true
-  })
   @Patch()
   @UseInterceptors(FileInterceptor('file'))
   @ApiConsumes('multipart/form-data')
@@ -36,10 +29,6 @@ export class ParentDashboardController {
   }
 
 
-  @SubPermissionGuard({
-    permissions: [PERMISSIONS.PARENTSPROFILE.subPermissions.GETDETAILS],
-    passthrough: true
-  })
   @Get("/parent-details")
   async getParentDetails(
     @CurrentUser() user: IUser,

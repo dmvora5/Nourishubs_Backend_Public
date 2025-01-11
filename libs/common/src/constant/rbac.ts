@@ -37,6 +37,16 @@ export const PERMISSIONS = {
 
         }
     },
+    ORDERMANAGEMENT: {
+        permission: "order_management",
+        subPermissions: {
+            GETLASTMOVEMENTCANCELLCENLIST: "get_last_movement_cancellation_list",
+            CHANGEORDER: "change_order",
+            DETAILSOFCANCELOREDR: "get_last_movement_cancellation_order_details",
+            APPROVELASTMOVEMENTCANCELLATION: "approve_last_movement_cancellation",
+            ORDERTRACKING: "order_tracking"
+        }
+    },
     // VENDORMANAGEMENT: {
     //     permission: "vendor_management",
     //     subPermissions: {
@@ -75,24 +85,24 @@ export const PERMISSIONS = {
     //         VERIFICATION_REQUEST: "verification_request",
     //     }
     // },
-    STAFFMANAGEMENT: {
-        permission: "staff_management",
-        subPermissions: {
-            CREATESTAFF: "create_staff",
-            UPDATESTAFF: "update_staff",
-            DELETESTAFF: "delete_staff",
-            GETALLSTAFF: "get_staff",
-            GETSTAFFDETAILS: "get_staff_details",
-        }
-    },
-    SCHOOLADMINDASHBOARD: {
-        permission: "schooladmin_dashboard_management",
-        subPermissions: {
-            PARENTREGISTRATIONREQUESTLIST: "parent_registration_list",
-            HANDLEREGISTRATIONREQUEST: "handle_registration_requests",
-            UPDATEPSCHOOLADMINROFILE: "update_schooladmin_profile",
-        }
-    },
+    // STAFFMANAGEMENT: {
+    //     permission: "staff_management",
+    //     subPermissions: {
+    //         CREATESTAFF: "create_staff",
+    //         UPDATESTAFF: "update_staff",
+    //         DELETESTAFF: "delete_staff",
+    //         GETALLSTAFF: "get_staff",
+    //         GETSTAFFDETAILS: "get_staff_details",
+    //     }
+    // },
+    // SCHOOLADMINDASHBOARD: {
+    //     permission: "schooladmin_dashboard_management",
+    //     subPermissions: {
+    //         PARENTREGISTRATIONREQUESTLIST: "parent_registration_list",
+    //         HANDLEREGISTRATIONREQUEST: "handle_registration_requests",
+    //         UPDATEPSCHOOLADMINROFILE: "update_schooladmin_profile",
+    //     }
+    // },
     FOOCHARTMANAGEMENT: {
         permission: "foodchart_management",
         subPermissions: {
@@ -101,19 +111,19 @@ export const PERMISSIONS = {
             GETFOODCHARTREQUESTS: "get_foodchart_requests",
         }
     },
-    PARENTMANAGEMENT: {
-        permission: "parent_management",
-        subPermissions: {
-            APPROVEPARENT: "approve_parent",
-        }
-    },
-    PARENTSPROFILE: {
-        permission: "parent_dashboard",
-        subPermissions: {
-            GETDETAILS: "get_details",
-            UPDATEPROFILE: "update_profile"
-        }
-    },
+    // PARENTMANAGEMENT: {
+    //     permission: "parent_management",
+    //     subPermissions: {
+    //         APPROVEPARENT: "approve_parent",
+    //     }
+    // },
+    // PARENTSPROFILE: {
+    //     permission: "parent_dashboard",
+    //     subPermissions: {
+    //         GETDETAILS: "get_details",
+    //         UPDATEPROFILE: "update_profile"
+    //     }
+    // },
     KIDSMANAGEMENT: {
         permission: "kids_management",
         subPermissions: {
@@ -123,10 +133,10 @@ export const PERMISSIONS = {
             GETKIDDETAILS: "get_kid_details",
         }
     },
-    MEALSELECTION: {
-        permission: "meal_selection",
-        subPermissions: {
-            ORDERMEAL: "order_meal",
-        }
-    }
+    // MEALSELECTION: {
+    //     permission: "meal_selection",
+    //     subPermissions: {
+    //         ORDERMEAL: "order_meal",
+    //     }
+    // }
 }

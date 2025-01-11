@@ -9,7 +9,7 @@ import { I18n, I18nContext } from 'nestjs-i18n';
 @ApiTags("SchoolAdmin / StaffManagement")
 @Controller('staff-management')
 @PermissionGuard({
-  permissions: [PERMISSIONS.STAFFMANAGEMENT.permission],
+  permissions: [PERMISSIONS.USERMANAGEMENT.permission],
   roles: [ROLES.SCHOOL],
 })
 @UseGuards(JwtAuthGuard)
@@ -20,7 +20,7 @@ export class StaffManagementController {
 
 
   @SubPermissionGuard({
-    permissions: [PERMISSIONS.STAFFMANAGEMENT.subPermissions.CREATESTAFF]
+    permissions: [PERMISSIONS.USERMANAGEMENT.subPermissions.CREATEUSERS]
   })
   @Post()
   @Validate()
@@ -37,7 +37,7 @@ export class StaffManagementController {
 
 
   @SubPermissionGuard({
-    permissions: [PERMISSIONS.STAFFMANAGEMENT.subPermissions.GETALLSTAFF]
+    permissions: [PERMISSIONS.USERMANAGEMENT.subPermissions.GETALLUSERS]
   })
   @Get()
   @ApiQuery({ name: 'page', description: 'pagenumber', required: false, example: 1 })
@@ -60,7 +60,7 @@ export class StaffManagementController {
 
 
   @SubPermissionGuard({
-    permissions: [PERMISSIONS.STAFFMANAGEMENT.subPermissions.GETSTAFFDETAILS]
+    permissions: [PERMISSIONS.USERMANAGEMENT.subPermissions.GETUSERDETAILS]
   })
   @Get(":id")
   async getStaffMemberdetailById(
@@ -73,7 +73,7 @@ export class StaffManagementController {
   }
 
   @SubPermissionGuard({
-    permissions: [PERMISSIONS.STAFFMANAGEMENT.subPermissions.DELETESTAFF]
+    permissions: [PERMISSIONS.USERMANAGEMENT.subPermissions.DELETEUSERS]
   })
   @Delete(':id')
   async softDeleteUser(

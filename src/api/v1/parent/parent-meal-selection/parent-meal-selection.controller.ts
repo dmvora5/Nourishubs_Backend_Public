@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Param, Post, Query, UseGuards } from '@nestjs/common';
-import { CurrentUser, IUser, JwtAuthGuard, KidVerificationGuard, PermissionGuard, PERMISSIONS, ROLES, Validate, ValidateObjectIdPipe } from '@app/common';
+import { CurrentUser, IUser, JwtAuthGuard, KidVerificationGuard, Validate, ValidateObjectIdPipe } from '@app/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { AvalebleVendorsForKid } from 'src/modules/meal-selection/dtos/meal-selection.dtos';
 import { MealSelectionService } from 'src/modules/meal-selection/meal-selection.service';
@@ -11,10 +11,6 @@ import { CreateCartItemForKid } from './dtos/create-cartItem-forkid';
 @ApiBearerAuth()
 @ApiTags("Parent / Meal-Selection")
 @Controller('parent-meal-selection')
-@PermissionGuard({
-  permissions: [PERMISSIONS.MEALSELECTION.permission],
-  roles: [ROLES.PARENT]
-})
 @UseGuards(JwtAuthGuard)
 export class ParentMealSelectionController {
   constructor(

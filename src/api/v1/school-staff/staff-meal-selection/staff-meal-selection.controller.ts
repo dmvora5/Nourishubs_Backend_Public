@@ -1,4 +1,4 @@
-import { CurrentUser, IUser, JwtAuthGuard, PermissionGuard, PERMISSIONS, ROLES, Validate, ValidateObjectIdPipe } from '@app/common';
+import { CurrentUser, IUser, JwtAuthGuard, Validate, ValidateObjectIdPipe } from '@app/common';
 import { Body, Controller, Get, Param, Post, Query, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { I18n, I18nContext } from 'nestjs-i18n';
@@ -10,10 +10,6 @@ import { MealSelectionService } from 'src/modules/meal-selection/meal-selection.
 @ApiBearerAuth()
 @ApiTags("Staff / Meal-Selection")
 @Controller('staff-meal-selection')
-@PermissionGuard({
-  permissions: [PERMISSIONS.MEALSELECTION.permission],
-  roles: [ROLES.TEACHER, ROLES.SCHOOLOTHERS]
-})
 @UseGuards(JwtAuthGuard)
 export class StaffMealSelectionController {
   constructor(private readonly mealSelectionService: MealSelectionService) { }

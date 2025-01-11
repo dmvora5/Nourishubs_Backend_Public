@@ -12,7 +12,7 @@ import { UploadService } from '@app/common/services';
 @ApiTags("SchoolAdmin / DashBoard")
 @Controller('school-admin-dashboard')
 @PermissionGuard({
-  permissions: [PERMISSIONS.SCHOOLADMINDASHBOARD.permission],
+  permissions: [PERMISSIONS.USERMANAGEMENT.permission],
   roles: [ROLES.SCHOOL]
 })
 @UseGuards(JwtAuthGuard)
@@ -24,7 +24,7 @@ export class SchoolAdminDashboardController {
 
 
   @SubPermissionGuard({
-    permissions: [PERMISSIONS.SCHOOLADMINDASHBOARD.subPermissions.PARENTREGISTRATIONREQUESTLIST],
+    permissions: [PERMISSIONS.USERMANAGEMENT.subPermissions.VERIFICATIONREQUESTS],
   })
   @Get('/registration-requests')
   @ApiQuery({ name: 'page', description: 'pagenumber', required: false, example: 1 })
@@ -41,7 +41,7 @@ export class SchoolAdminDashboardController {
 
 
   @SubPermissionGuard({
-    permissions: [PERMISSIONS.SCHOOLADMINDASHBOARD.subPermissions.HANDLEREGISTRATIONREQUEST]
+    permissions: [PERMISSIONS.USERMANAGEMENT.subPermissions.VERIFYUSER]
   })
   @Post("/update-request-status")
   @Validate()
@@ -52,10 +52,10 @@ export class SchoolAdminDashboardController {
     return this.schoolAdminDashboardService.handleRequest(payload, i18n);
   }
 
-  @SubPermissionGuard({
-    permissions: [PERMISSIONS.SCHOOLADMINDASHBOARD.subPermissions.UPDATEPSCHOOLADMINROFILE],
-    passthrough: true
-  })
+  // @SubPermissionGuard({
+  //   permissions: [PERMISSIONS.SCHOOLADMINDASHBOARD.subPermissions.UPDATEPSCHOOLADMINROFILE],
+  //   passthrough: true
+  // })
   @UseInterceptors(FileInterceptor('file'))
   @Patch()
   async updateSchoolAdmin(

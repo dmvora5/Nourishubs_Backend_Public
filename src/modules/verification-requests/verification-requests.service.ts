@@ -377,7 +377,7 @@ export class VerificationRequestsService {
                                 ...(page && limit ? [{ $skip: skip }, { $limit: +limit }] : []), // Apply pagination only if provided
                                 {
                                     $project: {
-                                        vendorId: 1,
+                                        userId: 1,
                                         // type: 1,
                                         minThresHold: 1,
                                         // documents: 1,
@@ -448,7 +448,7 @@ export class VerificationRequestsService {
         i18n: I18nContext,
     ) {
         const requests = await this.verificationRequestRepository.find({
-            vendorId: reqId,
+            userId: reqId,
             requestStatus: REQUEST_STATUS.OPEN,
             userType: requestUserType
         });
@@ -462,7 +462,7 @@ export class VerificationRequestsService {
 
         await this.verificationRequestRepository.updateMany(
             {
-                vendorId: reqId,
+                userId: reqId,
                 requestStatus: REQUEST_STATUS.OPEN,
                 userType: requestUserType
             },

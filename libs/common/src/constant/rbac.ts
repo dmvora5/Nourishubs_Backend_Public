@@ -24,6 +24,8 @@ export const PERMISSIONS = {
             REACTIVATEUSERS: "reactivate_users",
             TRACKUSERS: "track_users",
             TRACKUSERSENGAGEMENT: "track_user_engagement",
+            VERIFICATIONREQUESTS: "verification_requests",
+            VERIFYUSER: "verify_user",
         }
     },
     ROLEMANAGEMENT: {
@@ -35,21 +37,21 @@ export const PERMISSIONS = {
 
         }
     },
-    VENDORMANAGEMENT: {
-        permission: "vendor_management",
-        subPermissions: {
-            CREATEVENDORS: "create_vendor",
-            UPDATEVENDORS: "update_vendor",
-            DELETEVENDORS: "delete_vendor",
-            GETALLVENDORS: "get_vendors",
-            GETVENDORDETAILS: "get_vendordetails",
-            SUSPENDVENDORS: "suspend_vendors",
-            DOCUMENTVERIFICATIONLIST: "document_verification_list",
-            THRESHOLDVERIFICATIONLIST: "threshold_verification_list",
-            VERIFYDOCUMENTS: "verify_documents",
-            APPROVETHRESHOLD: "approve_threshold"
-        }
-    },
+    // VENDORMANAGEMENT: {
+    //     permission: "vendor_management",
+    //     subPermissions: {
+    //         CREATEVENDORS: "create_vendor",
+    //         UPDATEVENDORS: "update_vendor",
+    //         DELETEVENDORS: "delete_vendor",
+    //         GETALLVENDORS: "get_vendors",
+    //         GETVENDORDETAILS: "get_vendordetails",
+    //         SUSPENDVENDORS: "suspend_vendors",
+    //         DOCUMENTVERIFICATIONLIST: "document_verification_list",
+    //         THRESHOLDVERIFICATIONLIST: "threshold_verification_list",
+    //         VERIFYDOCUMENTS: "verify_documents",
+    //         APPROVETHRESHOLD: "approve_threshold"
+    //     }
+    // },
     MENUMANAGEMENT: {
         permission: "menu_management",
         subPermissions: {
@@ -67,14 +69,12 @@ export const PERMISSIONS = {
             GETALLCATEGORY: "get_categories",
         }
     },
-    VENDORPERMISSIONS: {
-        permission: "vendor_permissions",
-        subPermissions: {
-            UPDATEPROFILE: "update_profile",
-            THRESHOLDREQUEST: "thresshold_request",
-            DOCUMENTVERIFICATIONREQUEST: "document_verification_request",
-        }
-    },
+    // USERPERMISSIONS: {
+    //     permission: "user_permissions",
+    //     subPermissions: {
+    //         VERIFICATION_REQUEST: "verification_request",
+    //     }
+    // },
     STAFFMANAGEMENT: {
         permission: "staff_management",
         subPermissions: {

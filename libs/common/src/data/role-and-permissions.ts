@@ -42,59 +42,67 @@ export const ALL_PERMISSION = {
                 _id: PERMISSIONS.USERMANAGEMENT.subPermissions.TRACKUSERSENGAGEMENT,
                 name: 'Track User Engagement',
             },
+            {
+                _id: PERMISSIONS.USERMANAGEMENT.subPermissions.VERIFICATIONREQUESTS,
+                name: 'Get Verification requests list',
+            },
+            {
+                _id: PERMISSIONS.USERMANAGEMENT.subPermissions.VERIFYUSER,
+                name: 'Verify User',
+            },
         ]
     },
-    VENDORMANAGEMENT: {
-        _id: PERMISSIONS.VENDORMANAGEMENT.permission,
-        name: 'Vendor Management',
-        subPermissions: [
-            {
-                _id: PERMISSIONS.VENDORMANAGEMENT.subPermissions.CREATEVENDORS,
-                name: 'Create Vendor',
-            },
-            {
-                _id: PERMISSIONS.VENDORMANAGEMENT.subPermissions.UPDATEVENDORS,
-                name: 'Edit Vendor',
-            },
-            {
-                _id: PERMISSIONS.VENDORMANAGEMENT.subPermissions.DELETEVENDORS,
-                name: 'Delete Vendor',
-            },
-            {
-                _id: PERMISSIONS.VENDORMANAGEMENT.subPermissions.DOCUMENTVERIFICATIONLIST,
-                name: 'Document List',
-            },
-            {
-                _id: PERMISSIONS.VENDORMANAGEMENT.subPermissions.SUSPENDVENDORS,
-                name: 'Suspend Vendor',
-            },
-            {
-                _id: PERMISSIONS.VENDORMANAGEMENT.subPermissions.GETALLVENDORS,
-                name: 'Vendor Listr',
-            },
-            {
-                _id: PERMISSIONS.VENDORMANAGEMENT.subPermissions.GETVENDORDETAILS,
-                name: 'Vendor Detail',
-            },
-            {
-                _id: PERMISSIONS.VENDORMANAGEMENT.subPermissions.DOCUMENTVERIFICATIONLIST,
-                name: 'Document Verification List',
-            },
-            {
-                _id: PERMISSIONS.VENDORMANAGEMENT.subPermissions.VERIFYDOCUMENTS,
-                name: 'Verify Document',
-            },
-            {
-                _id: PERMISSIONS.VENDORMANAGEMENT.subPermissions.THRESHOLDVERIFICATIONLIST,
-                name: 'ThresHold Verification',
-            },
-            {
-                _id: PERMISSIONS.VENDORMANAGEMENT.subPermissions.APPROVETHRESHOLD,
-                name: 'Approve ThresHold',
-            },
+    // VENDORMANAGEMENT: {
+    //     _id: PERMISSIONS.VENDORMANAGEMENT.permission,
+    //     name: 'Vendor Management',
+    //     subPermissions: [
+    //         {
+    //             _id: PERMISSIONS.VENDORMANAGEMENT.subPermissions.CREATEVENDORS,
+    //             name: 'Create Vendor',
+    //         },
+    //         {
+    //             _id: PERMISSIONS.VENDORMANAGEMENT.subPermissions.UPDATEVENDORS,
+    //             name: 'Edit Vendor',
+    //         },
+    //         {
+    //             _id: PERMISSIONS.VENDORMANAGEMENT.subPermissions.DELETEVENDORS,
+    //             name: 'Delete Vendor',
+    //         },
+    //         {
+    //             _id: PERMISSIONS.VENDORMANAGEMENT.subPermissions.DOCUMENTVERIFICATIONLIST,
+    //             name: 'Document List',
+    //         },
+    //         {
+    //             _id: PERMISSIONS.VENDORMANAGEMENT.subPermissions.SUSPENDVENDORS,
+    //             name: 'Suspend Vendor',
+    //         },
+    //         {
+    //             _id: PERMISSIONS.VENDORMANAGEMENT.subPermissions.GETALLVENDORS,
+    //             name: 'Vendor Listr',
+    //         },
+    //         {
+    //             _id: PERMISSIONS.VENDORMANAGEMENT.subPermissions.GETVENDORDETAILS,
+    //             name: 'Vendor Detail',
+    //         },
+    //         {
+    //             _id: PERMISSIONS.VENDORMANAGEMENT.subPermissions.DOCUMENTVERIFICATIONLIST,
+    //             name: 'Document Verification List',
+    //         },
+    //         {
+    //             _id: PERMISSIONS.VENDORMANAGEMENT.subPermissions.VERIFYDOCUMENTS,
+    //             name: 'Verify Document',
+    //         },
+    //         {
+    //             _id: PERMISSIONS.VENDORMANAGEMENT.subPermissions.THRESHOLDVERIFICATIONLIST,
+    //             name: 'ThresHold Verification',
+    //         },
+    //         {
+    //             _id: PERMISSIONS.VENDORMANAGEMENT.subPermissions.APPROVETHRESHOLD,
+    //             name: 'Approve ThresHold',
+    //         },
 
-        ]
-    },
+    //     ]
+    // },
     ROLEMANAGEMENT: {
         _id: PERMISSIONS.ROLEMANAGEMENT.permission,
         name: 'Role Management',
@@ -187,7 +195,7 @@ export const ALL_PERMISSION = {
                 _id: PERMISSIONS.FOOCHARTMANAGEMENT.subPermissions.GETFOODCHARTREQUESTS,
                 name: 'Get Food Charts Requests',
             }
-            
+
         ]
     },
     MEALSELECTION: {
@@ -239,36 +247,36 @@ export const ALL_PERMISSION = {
 
         ]
     },
-    VENDORPERMISSIONS: {
-        _id: PERMISSIONS.VENDORPERMISSIONS.permission,
-        name: 'Vendor Permissions',
-        subPermissions: [
-            {
-                _id: PERMISSIONS.VENDORPERMISSIONS.subPermissions.UPDATEPROFILE,
-                name: 'Update Profile',
-            },
-            {
-                _id: PERMISSIONS.VENDORPERMISSIONS.subPermissions.THRESHOLDREQUEST,
-                name: 'Thresshold Request',
-            },
-            {
-                _id: PERMISSIONS.VENDORPERMISSIONS.subPermissions.DOCUMENTVERIFICATIONREQUEST,
-                name: 'Documnet verification request',
-            },
-            // {
-            //     _id: PERMISSIONS.VENDORPERMISSIONS.subPermissions.ADDFOODCATEGORY,
-            //     name: 'Add Food Category',
-            // },
-            // {
-            //     _id: PERMISSIONS.VENDORPERMISSIONS.subPermissions.UPDATEFOODCATEGORY,
-            //     name: 'Update Food Category',
-            // },
-            // {
-            //     _id: PERMISSIONS.VENDORPERMISSIONS.subPermissions.DELETEFOODCATEGORY,
-            //     name: 'Delete Food Category',
-            // },
-        ]
-    },
+    // USERPERMISSIONS: {
+    //     _id: PERMISSIONS.USERPERMISSIONS.permission,
+    //     name: 'User Permissions',
+    //     subPermissions: [
+    //         // {
+    //         //     _id: PERMISSIONS.VENDORPERMISSIONS.subPermissions.UPDATEPROFILE,
+    //         //     name: 'Update Profile',
+    //         // },
+    //         {
+    //             _id: PERMISSIONS.USERPERMISSIONS.subPermissions.VERIFICATION_REQUEST,
+    //             name: 'Generate Verification Request',
+    //         },
+    //         // {
+    //         //     _id: PERMISSIONS.VENDORPERMISSIONS.subPermissions.DOCUMENTVERIFICATIONREQUEST,
+    //         //     name: 'Documnet verification request',
+    //         // },
+    //         // {
+    //         //     _id: PERMISSIONS.VENDORPERMISSIONS.subPermissions.ADDFOODCATEGORY,
+    //         //     name: 'Add Food Category',
+    //         // },
+    //         // {
+    //         //     _id: PERMISSIONS.VENDORPERMISSIONS.subPermissions.UPDATEFOODCATEGORY,
+    //         //     name: 'Update Food Category',
+    //         // },
+    //         // {
+    //         //     _id: PERMISSIONS.VENDORPERMISSIONS.subPermissions.DELETEFOODCATEGORY,
+    //         //     name: 'Delete Food Category',
+    //         // },
+    //     ]
+    // },
     MENUMANAGEMENT: {
         _id: PERMISSIONS.MENUMANAGEMENT.permission,
         name: 'Menu Management',
@@ -348,12 +356,12 @@ export const INSERT_RBAC_DATA = {
                     ...Object.values(PERMISSIONS.USERMANAGEMENT.subPermissions)
                 ]
             },
-            {
-                permission: PERMISSIONS.VENDORMANAGEMENT.permission,
-                subPermissions: [
-                    ...Object.values(PERMISSIONS.VENDORMANAGEMENT.subPermissions)
-                ]
-            },
+            // {
+            //     permission: PERMISSIONS.VENDORMANAGEMENT.permission,
+            //     subPermissions: [
+            //         ...Object.values(PERMISSIONS.VENDORMANAGEMENT.subPermissions)
+            //     ]
+            // },
             {
                 permission: PERMISSIONS.ROLEMANAGEMENT.permission,
                 subPermissions: [
@@ -382,12 +390,12 @@ export const INSERT_RBAC_DATA = {
                     ...Object.values(PERMISSIONS.USERMANAGEMENT.subPermissions)
                 ]
             },
-            {
-                permission: PERMISSIONS.VENDORMANAGEMENT.permission,
-                subPermissions: [
-                    ...Object.values(PERMISSIONS.VENDORMANAGEMENT.subPermissions)
-                ]
-            },
+            // {
+            //     permission: PERMISSIONS.VENDORMANAGEMENT.permission,
+            //     subPermissions: [
+            //         ...Object.values(PERMISSIONS.VENDORMANAGEMENT.subPermissions)
+            //     ]
+            // },
             {
                 permission: PERMISSIONS.ROLEMANAGEMENT.permission,
                 subPermissions: [
@@ -415,12 +423,12 @@ export const INSERT_RBAC_DATA = {
                     ...Object.values(PERMISSIONS.USERMANAGEMENT.subPermissions)
                 ]
             },
-            {
-                permission: PERMISSIONS.VENDORMANAGEMENT.permission,
-                subPermissions: [
-                    ...Object.values(PERMISSIONS.VENDORMANAGEMENT.subPermissions)
-                ]
-            },
+            // {
+            //     permission: PERMISSIONS.VENDORMANAGEMENT.permission,
+            //     subPermissions: [
+            //         ...Object.values(PERMISSIONS.VENDORMANAGEMENT.subPermissions)
+            //     ]
+            // },
             {
                 permission: PERMISSIONS.ROLEMANAGEMENT.permission,
                 subPermissions: [
@@ -453,12 +461,12 @@ export const INSERT_RBAC_DATA = {
                     ...Object.values(PERMISSIONS.USERMANAGEMENT.subPermissions)
                 ]
             },
-            {
-                permission: PERMISSIONS.VENDORMANAGEMENT.permission,
-                subPermissions: [
-                    ...Object.values(PERMISSIONS.VENDORMANAGEMENT.subPermissions)
-                ]
-            },
+            // {
+            //     permission: PERMISSIONS.VENDORMANAGEMENT.permission,
+            //     subPermissions: [
+            //         ...Object.values(PERMISSIONS.VENDORMANAGEMENT.subPermissions)
+            //     ]
+            // },
             {
                 permission: PERMISSIONS.ROLEMANAGEMENT.permission,
                 subPermissions: [
@@ -485,9 +493,9 @@ export const INSERT_RBAC_DATA = {
         ],
         permissions: [
             {
-                permission: PERMISSIONS.VENDORMANAGEMENT.permission,
+                permission: PERMISSIONS.USERMANAGEMENT.permission,
                 subPermissions: [
-                    ...Object.values(PERMISSIONS.VENDORMANAGEMENT.subPermissions)
+                    ...Object.values(PERMISSIONS.USERMANAGEMENT.subPermissions)
                 ]
             },
             {
@@ -590,12 +598,12 @@ export const INSERT_RBAC_DATA = {
         name: "Vendor",
         childRoles: [],
         permissions: [
-            {
-                permission: PERMISSIONS.VENDORPERMISSIONS.permission,
-                subPermissions: [
-                    ...Object.values(PERMISSIONS.VENDORPERMISSIONS.subPermissions)
-                ]
-            },
+            // {
+            //     permission: PERMISSIONS.USERPERMISSIONS.permission,
+            //     subPermissions: [
+            //         ...Object.values(PERMISSIONS.USERPERMISSIONS.subPermissions)
+            //     ]
+            // },
             {
                 permission: PERMISSIONS.MENUMANAGEMENT.permission,
                 subPermissions: [

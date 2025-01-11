@@ -11,7 +11,7 @@ import { VerificationRequestsService } from 'src/modules/verification-requests/v
 @ApiTags("SuperAdmin / Vendor-Management")
 @Controller('super-admin-vendor-management')
 @PermissionGuard({
-  permissions: [PERMISSIONS.VENDORMANAGEMENT.permission],
+  permissions: [PERMISSIONS.USERMANAGEMENT.permission],
   roles: [ROLES.SUPER_ADMIN]
 })
 
@@ -22,7 +22,7 @@ import { VerificationRequestsService } from 'src/modules/verification-requests/v
   ) { }
 
   @SubPermissionGuard({
-    permissions: [PERMISSIONS.VENDORMANAGEMENT.subPermissions.GETALLVENDORS]
+    permissions: [PERMISSIONS.USERMANAGEMENT.subPermissions.GETALLUSERS]
   })
   @Get()
   @ApiQuery({ name: 'page', description: 'pagenumber', required: false, example: 1 })
@@ -43,7 +43,7 @@ import { VerificationRequestsService } from 'src/modules/verification-requests/v
   }
 
   @SubPermissionGuard({
-    permissions: [PERMISSIONS.VENDORMANAGEMENT.subPermissions.DOCUMENTVERIFICATIONLIST]
+    permissions: [PERMISSIONS.USERMANAGEMENT.subPermissions.VERIFICATIONREQUESTS]
   })
   @Get('documnets')
   @ApiQuery({ name: 'page', description: 'pagenumber', required: false, example: 1 })
@@ -66,7 +66,7 @@ import { VerificationRequestsService } from 'src/modules/verification-requests/v
 
 
   @SubPermissionGuard({
-    permissions: [PERMISSIONS.VENDORMANAGEMENT.subPermissions.VERIFYDOCUMENTS]
+    permissions: [PERMISSIONS.USERMANAGEMENT.subPermissions.VERIFYUSER]
   })
   @Get('document/:id')
   async documentById(
@@ -78,7 +78,7 @@ import { VerificationRequestsService } from 'src/modules/verification-requests/v
 
 
   @SubPermissionGuard({
-    permissions: [PERMISSIONS.VENDORMANAGEMENT.subPermissions.THRESHOLDVERIFICATIONLIST]
+    permissions: [PERMISSIONS.USERMANAGEMENT.subPermissions.VERIFICATIONREQUESTS]
   })
   @Get('threshold')
   @ApiQuery({ name: 'page', description: 'pagenumber', required: false, example: 1 })
@@ -100,7 +100,7 @@ import { VerificationRequestsService } from 'src/modules/verification-requests/v
 
 
   @SubPermissionGuard({
-    permissions: [PERMISSIONS.VENDORMANAGEMENT.subPermissions.SUSPENDVENDORS]
+    permissions: [PERMISSIONS.USERMANAGEMENT.subPermissions.SUSPENDUSERS]
   })
   @Patch('suspend/:id')
   @Validate()
@@ -118,7 +118,7 @@ import { VerificationRequestsService } from 'src/modules/verification-requests/v
 
 
   @SubPermissionGuard({
-    permissions: [PERMISSIONS.VENDORMANAGEMENT.subPermissions.VERIFYDOCUMENTS]
+    permissions: [PERMISSIONS.USERMANAGEMENT.subPermissions.VERIFYUSER]
   })
   @Patch('document-request/:id')
   @Validate()
@@ -137,7 +137,7 @@ import { VerificationRequestsService } from 'src/modules/verification-requests/v
 
 
   @SubPermissionGuard({
-    permissions: [PERMISSIONS.VENDORMANAGEMENT.subPermissions.APPROVETHRESHOLD]
+    permissions: [PERMISSIONS.USERMANAGEMENT.subPermissions.VERIFYUSER]
   })
   @Patch('threshold-request/:id')
   @Validate()
@@ -154,7 +154,7 @@ import { VerificationRequestsService } from 'src/modules/verification-requests/v
   }
 
   @SubPermissionGuard({
-    permissions: [PERMISSIONS.VENDORMANAGEMENT.subPermissions.GETVENDORDETAILS]
+    permissions: [PERMISSIONS.USERMANAGEMENT.subPermissions.VERIFYUSER]
   })
   @Get('/:id')
   async getVendorById(

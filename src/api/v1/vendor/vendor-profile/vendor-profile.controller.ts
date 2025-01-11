@@ -12,10 +12,10 @@ import { VerificationRequestsService } from 'src/modules/verification-requests/v
 @ApiBearerAuth()
 @ApiTags("Vendor / Profile-Management")
 @Controller('vendor')
-@PermissionGuard({
-  permissions: [PERMISSIONS.VENDORPERMISSIONS.permission],
-  roles: [ROLES.VENDOR]
-})
+// @PermissionGuard({
+//   permissions: [PERMISSIONS.USERPERMISSIONS.permission],
+//   roles: [ROLES.VENDOR]
+// })
 @UseGuards(JwtAuthGuard)
 export class VendorProfileController {
   constructor(
@@ -25,10 +25,10 @@ export class VendorProfileController {
   ) { }
 
 
-  @SubPermissionGuard({
-    permissions: [PERMISSIONS.VENDORPERMISSIONS.subPermissions.UPDATEPROFILE],
-    passthrough: true,
-  })
+  // @SubPermissionGuard({
+  //   permissions: [PERMISSIONS.USERPERMISSIONS.subPermissions.UPDATEPROFILE],
+  //   passthrough: true,
+  // })
   @Patch()
   @Validate()
   async updateVendorProfile(
@@ -40,12 +40,10 @@ export class VendorProfileController {
   }
 
 
-
-
-  @SubPermissionGuard({
-    permissions: [PERMISSIONS.VENDORPERMISSIONS.subPermissions.UPDATEPROFILE],
-    passthrough: true,
-  })
+  // @SubPermissionGuard({
+  //   permissions: [PERMISSIONS.VENDORPERMISSIONS.subPermissions.UPDATEPROFILE],
+  //   passthrough: true,
+  // })
   @ApiConsumes('multipart/form-data')
   @ApiBody({
     description: 'upload profile image',
@@ -59,13 +57,10 @@ export class VendorProfileController {
 
   }
 
-
-
-
-  @SubPermissionGuard({
-    permissions: [PERMISSIONS.VENDORPERMISSIONS.subPermissions.UPDATEPROFILE],
-    passthrough: true,
-  })
+  // @SubPermissionGuard({
+  //   permissions: [PERMISSIONS.VENDORPERMISSIONS.subPermissions.UPDATEPROFILE],
+  //   passthrough: true,
+  // })
   @ApiConsumes('multipart/form-data')
   @ApiBody({
     description: 'upload document',
@@ -80,10 +75,10 @@ export class VendorProfileController {
   }
 
 
-  @SubPermissionGuard({
-    permissions: [PERMISSIONS.VENDORPERMISSIONS.subPermissions.THRESHOLDREQUEST],
-    passthrough: true,
-  })
+  // @SubPermissionGuard({
+  //   permissions: [PERMISSIONS.USERPERMISSIONS.subPermissions.VERIFICATION_REQUEST],
+  //   passthrough: true,
+  // })
   @Post("/request-threshold")
   @Validate()
   async genrateThresHoldRequest(
@@ -96,10 +91,10 @@ export class VendorProfileController {
 
 
 
-  @SubPermissionGuard({
-    permissions: [PERMISSIONS.VENDORPERMISSIONS.subPermissions.DOCUMENTVERIFICATIONREQUEST],
-    passthrough: true,
-  })
+  // @SubPermissionGuard({
+  //   permissions: [PERMISSIONS.USERPERMISSIONS.subPermissions.VERIFICATION_REQUEST],
+  //   passthrough: true,
+  // })
   @Post("/request-document")
   @Validate()
   async genrateDocumentsRequest(

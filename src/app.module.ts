@@ -43,6 +43,8 @@ import { AdminOrderManagement } from './api/v1/admin/order-management/orders.mod
 import { StateExecutiveOrderManagement } from './api/v1/state-executive/order-management/orders.module';
 import { DistrictExecutiveOrderManagement } from './api/v1/district-executive/order-management/orders.module';
 import { AreaExecutiveOrderManagement } from './api/v1/area-executives/order-management/orders.module';
+import { SchoolAndVendorVerifyModule } from './api/v1/district-executive/school-and-vendor-verify/school-and-vendor-verify.module';
+import { SchoolAndVendorAssosiatesModule } from './api/v1/district-executive/school-and-vendor-assosiates/school-and-vendor-assosiates.module';
 @Module({
   imports: [
     CommonModule,
@@ -87,7 +89,9 @@ import { AreaExecutiveOrderManagement } from './api/v1/area-executives/order-man
     AdminOrderManagement,
     StateExecutiveOrderManagement,
     DistrictExecutiveOrderManagement,
-    AreaExecutiveOrderManagement
+    AreaExecutiveOrderManagement,
+    SchoolAndVendorVerifyModule,
+    SchoolAndVendorAssosiatesModule,
     // SeederModule
   ]
 })

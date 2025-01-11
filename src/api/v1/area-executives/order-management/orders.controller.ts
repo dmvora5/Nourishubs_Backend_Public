@@ -157,7 +157,7 @@ export class OrdersController {
   }
 
   @SubPermissionGuard({
-    permissions: [PERMISSIONS.VENDORMANAGEMENT.subPermissions.THRESHOLDVERIFICATIONLIST]
+    permissions: [PERMISSIONS.USERMANAGEMENT.subPermissions.VERIFICATIONREQUESTS]
   })
   @Get('threshold')
   @ApiQuery({ name: 'page', description: 'pagenumber', required: false, example: 1 })
@@ -178,7 +178,7 @@ export class OrdersController {
   }
 
   @SubPermissionGuard({
-    permissions: [PERMISSIONS.VENDORMANAGEMENT.subPermissions.APPROVETHRESHOLD]
+    permissions: [PERMISSIONS.USERMANAGEMENT.subPermissions.VERIFYUSER]
   })
   @Patch('threshold-request/:id')
   @Validate()
